@@ -4,7 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from '../shared/material.module';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -13,16 +13,15 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule, // para utilizar o routerLink na navbar
+    RouterModule, 
+    HttpClientModule
+
   ],
-  exports: [ // são os componentes, pipes e etc que ficam "públicos"
+  exports: [
     NavbarComponent,
     FooterComponent,
   ],
 })
 export class CoreModule { }
 
-/**
- * Guardas elementos de contexto global como serviços,
- * navbar, models e etc.
- */
+
