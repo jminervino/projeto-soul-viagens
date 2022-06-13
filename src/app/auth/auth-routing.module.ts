@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { ChatroomComponent } from './components/chatroom/chatroom/chatroom.component';
 import { LoginComponent } from './components/login/login.component';
 import { RecuperarSenhaComponent } from './components/recuperar-senha/recuperar-senha.component';
 import { TermosDePrivacidadeComponent } from './components/termos-de-privacidade/termos-de-privacidade.component';
@@ -37,6 +38,9 @@ const routes: Routes = [
     ...canActivate(redirectLoggedInToDiarios),
 
   },
+  {
+    path: "chat", component: ChatroomComponent,
+  }
 ];
 
 @NgModule({
