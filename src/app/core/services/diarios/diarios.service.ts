@@ -3,6 +3,7 @@ import {
   collectionData,
   docData,
   Firestore,
+  orderBy,
   where,
 } from '@angular/fire/firestore';
 import {
@@ -30,9 +31,9 @@ export class DiariosService {
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
 
   getTodosDiarios(): Observable<Diario[]> {
-
-    return collectionData(this.diarios, { idField: 'id' });
-  }
+    const q = query(this.diarios, orderBy('createdAt', 'desc'));
+  return collectionData(q, { idField: 'id' });
+}
 
   getDiariosUsuario(): Observable<Diario[]> {
     return this.authService.logged.pipe(
@@ -48,7 +49,7 @@ export class DiariosService {
   }
 
   getDiarioById(id: string): Observable<Diario> {
-    const diarioDoc = doc(this.diarios, id); 
+    const diarioDoc = doc(this.diarios, id);
     return docData(diarioDoc, { idField: 'id' });
   }
 
@@ -76,10 +77,10 @@ export class DiariosService {
   editDiario(diario: Diario, imagem?: File) {
     const diarioDoc = doc(this.diarios, diario.id);
     return this.uploadService
-      .upload(imagem, `diarios/${diario.usuarioId}/`) 
+      .upload(imagem, `diarios/${diario.usuarioId}/`)
       .pipe(
         switchMap((url) => {
-     
+
           return from(
             updateDoc(diarioDoc, { ...diario, imagem: url ?? diario.imagem })
           );
