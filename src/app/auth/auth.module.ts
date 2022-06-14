@@ -11,10 +11,6 @@ import { MaterialModule } from '../shared/material.module';
 import { TermosDePrivacidadeComponent } from './components/termos-de-privacidade/termos-de-privacidade.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 
-import { TranslateModule } from '@ngx-translate/core';
-import { StreamChatModule, StreamAutocompleteTextareaModule } from 'stream-chat-angular';
-import { ChatroomComponent } from './components/chatroom/chatroom/chatroom.component';
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -22,7 +18,6 @@ import { ChatroomComponent } from './components/chatroom/chatroom/chatroom.compo
     RecuperarSenhaComponent,
     UsuarioNaoVerificadoComponent,
     TermosDePrivacidadeComponent,
-    ChatroomComponent
   ],
   imports: [
     CommonModule,
@@ -31,10 +26,7 @@ import { ChatroomComponent } from './components/chatroom/chatroom/chatroom.compo
     MaterialModule,
     FormsModule,
     NgxCaptchaModule,
-    TranslateModule.forChild(),
-    StreamChatModule,
-    StreamAutocompleteTextareaModule
-  ],
+]
 })
 export class AuthModule { }
 
