@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
+
+  imagem = 'https://www.unitur.com.br/wp-content/uploads/2020/04/picture-2606675_1280-768x512.jpg';
   signupForm = this.fb.group(
     {
       nome: ['', [Validators.required]],
