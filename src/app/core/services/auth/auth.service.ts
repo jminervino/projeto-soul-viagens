@@ -1,6 +1,5 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Auth, authState, FacebookAuthProvider, updateProfile } from '@angular/fire/auth';
+import { Auth, authState, FacebookAuthProvider } from '@angular/fire/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import {
@@ -13,7 +12,7 @@ import {
   User,
 } from '@firebase/auth';
 import { collection, setDoc, updateDoc } from '@firebase/firestore';
-import { first, forkJoin, from, map, Observable, pluck, switchMap, tap } from 'rxjs';
+import { first, from, map, Observable, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,19 +21,10 @@ export class AuthService {
   constructor(
     private auth: Auth, 
     private db: Firestore, 
-    private router: Router,
-    private http: HttpClient
+    private router: Router 
   ) {}
 
-  uid?: string;
-
-  getStreamToken(){
-    return authState(this.auth).pipe( 
-      first(), 
-      switchMap((user: any) => this.http.post<{token: string}>("http://localhost:5001/app-diario-viagens/us-central1/createStreamToken", {
-      user: user.uid
-    }).pipe(pluck("token"))))
-  }
+  uid?: string; 
 
   get logged() {
     return authState(this.auth).pipe(
@@ -45,7 +35,9 @@ export class AuthService {
   }
 
   get userData() {
+    
     const userDoc = doc(this.usuarios, this.uid);
+   
     return docData(userDoc).pipe(first());
   }
 
@@ -70,16 +62,16 @@ export class AuthService {
       tap((creds) => {
         const user = creds.user;
         const userDoc = doc(this.usuarios, user.uid); 
+        
         setDoc(userDoc, {
           uid: user.uid,
           email: email,
           nome: nome,
           nick: nick,
         });
-        this.emailVerificacao(creds.user);
-        this.http.post("http://localhost:5001/app-diario-viagens/us-central1/createStreamUser", {user: {...user, displayName: nome}}).subscribe(); 
-      }),
 
+        this.emailVerificacao(creds.user);
+      })
     );
   }
 
@@ -119,6 +111,7 @@ export class AuthService {
           nome: user.displayName, 
           nick: 'Um usuário do Google',
         });
+
         this.router.navigate(['/']);
       })
     );
