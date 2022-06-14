@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  imagem = 'https://www.blogvambora.com.br/wp-content/uploads/2019/08/chip-de-viagem-europa.jpg';
+
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(8)]],
@@ -73,7 +75,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  
+
   ngOnInit(): void { }
 }
 

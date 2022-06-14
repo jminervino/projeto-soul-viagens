@@ -1,3 +1,13 @@
+.foto1{
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 15px;
+    border-radius: 6px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -23,7 +33,7 @@ button {
 }
 
 .btnLoginBG {
-    background-color: #623EBA;
+    background-color:#458AF1;
 }
 
 
@@ -41,7 +51,7 @@ button {
 }
 
 .viewPassword  {
-    margin-left: 160px;
+    margin-left: 220px;
     text-decoration: none;
     cursor: pointer;
     
