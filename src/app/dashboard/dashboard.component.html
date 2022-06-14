@@ -3,6 +3,12 @@
   <span *ngIf="totalPosts$ | async as total">
     Total de posts: {{ total }}
   </span>
+
+  <br />
+  <span *ngIf="usuarioTotal$ | async as total">
+    Total de usuários: {{ total }}
+  </span>
+  
   <mat-grid-list cols="3" rowHeight="400px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
