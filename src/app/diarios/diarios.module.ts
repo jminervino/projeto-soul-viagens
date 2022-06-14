@@ -9,6 +9,7 @@ import { DiarioDetailComponent } from './components/diario-detail/diario-detail.
 import { DiarioEditComponent } from './components/diario-edit/diario-edit.component';
 import { DiarioListComponent } from './components/diario-list/diario-list.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -26,8 +27,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    MatGridListModule
-
+    MatGridListModule,
+    NgxPaginationModule
   ]
 })
 export class DiariosModule { }
