@@ -16,7 +16,13 @@ import { Diario, DiarioConverter } from '../../models/diario';
 export class DashboardService {
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
 
-  constructor(private db: Firestore) {}
+  usuarios = collection(this.db, 'usuarios');
+
+  constructor(private db: Firestore) { }
+
+  getContadorUsuario(): Observable<number> {
+    return collectionData(this.usuarios).pipe(map((usuarios) => usuarios.length));
+  }
 
   getPostsCount(): Observable<number> {
     return collectionData(this.diarios).pipe(map((diarios) => diarios.length));
@@ -65,9 +71,9 @@ export class DashboardService {
       'Segunda',
       'Terça',
       'Quarta',
-      'Quinta', 
-      'Sexta', 
-      'Sábado', 
+      'Quinta',
+      'Sexta',
+      'Sábado',
     ];
 
     const dates = diarios.map((diario) => weekdays[diario.createdAt.getDay()]);
