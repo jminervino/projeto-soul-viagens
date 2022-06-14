@@ -1,37 +1,44 @@
-<div class="form-wrapper container" style="margin-top: 200px;">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="form">
-        <h2>Login</h2>
-        <p>Seja bem-vindo(a) de volta!</p>
-        <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Seu email" formControlName="email" required>
-            <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
-            <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
-            <mat-icon matPrefix>person</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Senha</mat-label>
-            <mat-icon mat-icon class="viewPassword" (click)="changeView()">visibility</mat-icon>
-            <input *ngIf="!hide ; else: type" matInput placeholder="Sua senha" formControlName="senha" type="password" secureTextEntry="false" />
-             <ng-template #type>   
-            </ng-template> 
-            <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
-            <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
-            <mat-icon matPrefix>key</mat-icon>
-        </mat-form-field>
-        <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" style="margin-bottom: 15px;">
-        </ngx-recaptcha2>
-        <a routerLink="/recuperar-senha">Esqueci minha senha</a>
-        <button class="btnLoginBG" mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
-        <span id="elementLine">ou</span>
-        <button (click)="onLoginGoogle()" type="button" mat-raised-button color="warn">
-            Entrar com o google
-        </button>
-        <button (click)="onLoginFacebook()" type="button" mat-raised-button color="warn" style="margin-bottom: 200px;">
-            Entrar com o Facebook
-        </button>
+<mat-grid-list cols="2">
+    <mat-grid-tile rowspan="1">
 
-    </form>
+        <img class="foto1" [src]="imagem" alt="">
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="form-wrapper container" style="margin-top: 230px;  color: #458AF1;  ">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="form">
+                <h2 style="margin-left:40%;"><strong>Login</strong></h2>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Seu email" formControlName="email" required>
+                    <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Senha</mat-label>
+                    <mat-icon mat-icon class="viewPassword" (click)="changeView()">visibility</mat-icon>
+                    <input *ngIf="!hide ; else: type" matInput placeholder="Sua senha" formControlName="senha" type="password" secureTextEntry="false" />
+                    <ng-template #type>
+                    </ng-template>
+                    <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
+                    <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
+                    <mat-icon matPrefix>key</mat-icon>
+                </mat-form-field>
+                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" style="margin-bottom: 15px;">
+                </ngx-recaptcha2>
+                <div style="margin-left: 30%; margin-bottom: 3%;">
+                    <a routerLink="/recuperar-senha">Esqueci minha senha</a>
+                </div>
+                <button class="btnLoginBG" mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+                <span id="elementLine" style="margin-left:48%; margin-bottom: 3%;">ou</span>
+                <button (click)="onLoginGoogle()" type="button" mat-raised-button color="warn">
+                    Entrar com o Google
+                </button>
+                <button (click)="onLoginFacebook()" type="button" mat-raised-button color="primary" style="margin-bottom: 200px;">
+                    Entrar com o Facebook
+                </button>
+            </form>
 
-    
-</div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
