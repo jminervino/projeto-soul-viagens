@@ -1,16 +1,4 @@
-
-body{
-    // background: linear-gradient(-100deg, white 50%, deeppink 50%);
-    height: 70vh;
-    font-family: poppins;
-    background: #9ACEFE;;
-}
-
-.container{
-    margin-top: 5%;
-}
-
-.img-text{
+.img-text {
     width: 100%;
     height: 300px;
     display: block;
@@ -21,20 +9,22 @@ body{
     border-radius: 15px;
 }
 
-.img-text h2{
-    font-size:25px;
+.img-text h2 {
+    font-size: 25px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
-.img-text p{
-    font-size: 14px;    
+.img-text p {
+    font-size: 14px;
 }
-.single-box{
+
+.single-box {
     position: relative;
     margin-bottom: 30px;
 }
-.img-area{
+
+.img-area {
     position: absolute;
     width: 100px;
     height: 100px;
@@ -44,29 +34,29 @@ body{
     left: 125px;
     border-radius: 50%;
 }
-.img-area img{
+
+.img-area img {
     width: 100%;
 }
-.carousel-indicators{
+
+.carousel-indicators {
     left: 0;
     top: auto;
     bottom: -70px;
-
 }
 
-.carousel-indicator li{
+.carousel-indicator li {
     background: #000;
-    border-radius:50% ;
+    border-radius: 50%;
     width: 15px;
     height: 15px;
-
 }
 
-.carousel-indicator .active{
+.carousel-indicator .active {
     background: #9ACEFE;
 }
 
-.icon{
+.icon {
     font-size: 25px;
     font: bolder;
     color: #0A184F;
