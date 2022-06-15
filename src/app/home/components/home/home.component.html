@@ -1,9 +1,52 @@
-<div class="banner-image h-100 w-100 d-flex justify-content-center align-items-center">
-    <h2 style="color: white">O App perfeito para armazenar suas memórias</h2>
+<div class="banner-image d-flex">
+    <div class="text-banner">
+        <p>Você irá se <br> surpreender com o <br> que somos capazes!!</p>
+    </div>
+</div>
+<div>
+    <div style="margin-top: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let item of imgCarousel">
+                                        <div class="single-box">
+                                            <div class="img-area">
+                                                <img class="d-block w-100" [src]="item" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let item of imgCarousel2">
+                                        <div class="single-box">
+                                            <div class="img-area">
+                                                <img class="d-block w-100" [src]="item" alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="banner-center" style="margin-top: 100px"></div>
 </div>
 <div>
     <app-home-carousel></app-home-carousel>
-</div>
-<div>
-
 </div>
