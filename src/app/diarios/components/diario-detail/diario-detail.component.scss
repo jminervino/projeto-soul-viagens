@@ -3,17 +3,13 @@
 }
 
 .container {
-  display: grid;
-  display: flex;
-  grid-template-columns: repeat(var(--var-repeat), minmax(200px, 1fr));
-  grid-template-rows: 20px auto;
-  gap: 20px;
-  padding: 1em;
-  width: 50%;
-  margin-top: 20px;
-  justify-content: center;
-  flex-direction: row;
-  object-fit: cover;
-  
-  
+  width: 70%;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.container img {
+  width: 100%;
+background-size: cover;
+  margin: auto;
 }

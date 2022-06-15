@@ -1,14 +1,11 @@
 <nav class="navbar">
     <div class="container-fluid">
         <a mat-button routerLink="/home" class="link">
-            <img src="assets/img/lgo-removebg-preview.png" style="width: 160px; margin: -30px;">
+            <img src="/assets/img/logo.png" style="width: 160px; margin: -30px;">
         </a>
         <div *ngIf="logged$ | async as logadoNavbar; else unlogged" class="link-area">
             <a mat-button routerLink="/diarios" matTooltip="Todos">Diários</a>
             <a mat-button>{{logadoNavbar.email}}</a>
-            <button mat-icon-button (click)="mudarCor()" matTooltip="Mudar cor">
-                <mat-icon>colorize</mat-icon>
-            </button>
             <button mat-icon-button (click)="logout()" matTooltip="Fazer logout">
                 <mat-icon>logout</mat-icon>
             </button>

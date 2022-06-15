@@ -16,15 +16,8 @@ export class LoginComponent implements OnInit {
     senha: ['', [Validators.required, Validators.minLength(8)]],
   });
 
-  hide?: boolean = false;
-  // Ofuscar senha 
-  changeView() {
-    if (this.hide === true) {
-      this.hide = false;
-    } else {
-      this.hide = true;
-    }
-  }
+  hide = true;
+
 
   siteKey: string;
   constructor(
@@ -78,8 +71,3 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 }
-
-
-
-
-

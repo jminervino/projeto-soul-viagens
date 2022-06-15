@@ -2,9 +2,7 @@
     width: 75%;
     height: 75%;
     object-fit: cover;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: 15px;
+    margin: 25px 0 25px 15px;
     border-radius: 6px;
 }
 
@@ -13,19 +11,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #ffff;
-    width: 25%;
-    height: 60%;
-    margin:auto;
-    margin-top: 6%;
-    border-radius: 20px;
-    padding: 10px 50px 20px;
-    // border-right: 4mm ridge rgba(211, 220, 50, .6);
-    // border-left: 4mm ridge rgba(211, 220, 50, .6);
     font-family: 'Joan', serif;
-    
-}
+    margin-top: 230px;
+    color: #458AF1;
 
+}
 
 button {
     width: 100%;
@@ -36,24 +26,8 @@ button {
     background-color:#458AF1;
 }
 
-
-.elementLine {
-  text-align: center;
-}
-
-
 .form {
     padding-right: 10%;
-    align-items: center;
     justify-content: center;
     margin: auto;
-    
 }
-
-.viewPassword  {
-    margin-left: 220px;
-    text-decoration: none;
-    cursor: pointer;
-    
-    
-    }
