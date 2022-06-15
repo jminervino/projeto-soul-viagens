@@ -19,15 +19,6 @@ export class NavbarComponent implements OnInit {
   logged$?: Observable<any>;
   corDaNav: string = "#d7d228"
 
-  mudarCor() {
-    document.querySelector(".navbar-color")?.classList.add("btnCheck2");
-    if(this.corDaNav === "#d7d228") {
-      this.corDaNav = "accent"
-    } else {
-      this.corDaNav = "#d7d228"
-    }
-  } 
-  
   logout() {
     this.authService.logout('/login')
     .pipe(
