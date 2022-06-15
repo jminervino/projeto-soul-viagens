@@ -13,37 +13,24 @@
                   <mat-card-title class="tam">{{ diario.usuarioName }}</mat-card-title>
                   <mat-card-subtitle class="nick">{{
                     diario.usuarioNick
-                  }}</mat-card-subtitle>
+                    }}</mat-card-subtitle>
                 </mat-card-header>
-                <img
-                  mat-card-image
-                  [src]="diario.imagem"
-                  alt="Photo of a Shiba Inu"
-                />
+                <img mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
                 <mat-card-content>
                   <h2>{{ diario.titulo }}</h2>
                   <small>{{ diario.data | date }} | {{ diario.local }}</small>
                   <p>{{ diario.corpo }}</p>
                 </mat-card-content>
                 <mat-card-actions>
-                  <a
-                    [routerLink]="diario.id"
-                    mat-icon-button
-                    color="primary"
-                    matTooltip="Detalhes">
+                  <a [routerLink]="diario.id" mat-icon-button color="primary" matTooltip="Detalhes">
                     <mat-icon>visibility</mat-icon>
                   </a>
                 </mat-card-actions>
               </mat-card>
               <div>
-              <pagination-controls
-              [responsive]="true"
-              previousLabel="Anterior"
-              nextLabel="Próximo"
-              [maxSize]=5
-              (pageChange)="pagina = $event">
-            </pagination-controls>
-            </div>
+                <pagination-controls [responsive]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]=5 (pageChange)="pagina = $event">
+                </pagination-controls>
+              </div>
             </div>
           </div>
         </div>
@@ -53,54 +40,29 @@
     <mat-tab label="Meus Diarios">
       <div *ngIf="meusDiarios$ | async as diarios; else loading">
         <div class="perfil">
-          <div
+          <!-- <div
             mat-card-avatar
             class="example-header-image"
             matTooltip="Usuario logado"
-          ></div>
+          ></div> -->
           <div class="galery">
-            <strong>Galeria</strong>
+            <span class="texto"> <strong>Galeria</strong></span>
           </div>
         </div>
 
-        <mat-grid-list
-          cols="3"
-          rowHeight="500px"
-          *ngIf="qtColumns | async as dimension"
-        >
-          <mat-grid-tile
-            *ngFor="let diario of diarios"
-            [colspan]="dimension.cols"
-          >
+        <mat-grid-list cols="3" rowHeight="500px" *ngIf="qtColumns | async as dimension">
+          <mat-grid-tile *ngFor="let diario of diarios" [colspan]="dimension.cols">
             <mat-card class="diario-card">
-              <img
-                class="imgfoto"
-                mat-card-image
-                [src]="diario.imagem"
-                alt="Photo of a Shiba Inu"
-              />
-              <mat-card-title
-                ><strong>{{ diario.titulo }}</strong></mat-card-title
-              >
+              <img class="imgfoto" mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
+              <mat-card-title><strong>{{ diario.titulo }}</strong></mat-card-title>
               <small style="text-align: right">
-                {{ diario.local }} / {{ diario.data | date }}</small
-              >
+                {{ diario.local }} / {{ diario.data | date }}</small>
 
-              <button
-                class="edit"
-                (click)="onClickEdit(diario)"
-                mat-icon-button
-                color="primary"
-              >
+              <button class="edit" (click)="onClickEdit(diario)" mat-icon-button color="primary">
                 <mat-icon>edit</mat-icon>
               </button>
 
-              <button
-                class="delete"
-                (click)="onClickDelete(diario)"
-                mat-icon-button
-                color="warn"
-              >
+              <button class="delete" (click)="onClickDelete(diario)" mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-card>
