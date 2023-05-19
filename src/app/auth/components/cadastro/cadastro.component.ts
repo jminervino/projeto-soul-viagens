@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
+  UntypedFormBuilder,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -35,7 +35,7 @@ export class CadastroComponent implements OnInit {
 
   siteKey: string;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private toast: HotToastService
   ) { this.siteKey = '6Lf5nmQgAAAAAGBE82rwfwIllPqz90bkIuXEjzei'; }
