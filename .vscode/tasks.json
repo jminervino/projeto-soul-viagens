@@ -37,6 +37,15 @@
           }
         }
       }
+    },
+    {
+      "label": "Angular Build",
+      "type": "shell",
+      "command": "ng build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }

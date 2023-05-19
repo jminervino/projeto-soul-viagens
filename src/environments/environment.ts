@@ -4,13 +4,13 @@
 
 export const environment = {
   firebase: {
-    projectId: 'app-diario-viagens',
-    appId: '1:737202778494:web:6bec720cdbaa535f5e432f',
-    storageBucket: 'app-diario-viagens.appspot.com',
-    locationId: 'us-central',
-    apiKey: 'AIzaSyCGYErbaQ3T3cWxjhbz_7yJdHWkhFDvHtQ',
-    authDomain: 'app-diario-viagens.firebaseapp.com',
-    messagingSenderId: '737202778494',
+    apiKey: "AIzaSyACHCjkrKhtYNtKWE5sNMmNM4WDgPcjqko",
+    authDomain: "conexao-viajante.firebaseapp.com",
+    projectId: "conexao-viajante",
+    storageBucket: "conexao-viajante.appspot.com",
+    messagingSenderId: "1078076881174",
+    appId: "1:1078076881174:web:dd5b7cd79fd6bac6cd3837",
+    measurementId: "G-VG0CEE452F"
   },
   production: false,
 };

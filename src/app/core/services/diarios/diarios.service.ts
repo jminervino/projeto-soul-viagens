@@ -32,8 +32,8 @@ export class DiariosService {
 
   getTodosDiarios(): Observable<Diario[]> {
     const q = query(this.diarios, orderBy('createdAt', 'desc'));
-  return collectionData(q, { idField: 'id' });
-}
+    return collectionData(q, { idField: 'id' });
+  }
 
   getDiariosUsuario(): Observable<Diario[]> {
     return this.authService.logged.pipe(
