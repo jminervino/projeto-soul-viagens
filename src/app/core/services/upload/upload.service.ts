@@ -17,11 +17,13 @@ export class UploadService {
   }
 
   upload(file?: File, folder?: string): Observable<string | null> {
+    console.log("chegou no Upload da imagem - Storage");
+
     if (file) {
       const filename = this.createFileName(file);
-      const fileRef = ref(this.storage, folder + filename); 
+      const fileRef = ref(this.storage, folder + filename);
       return from(uploadBytes(fileRef, file)).pipe(
-        switchMap(() => from(getDownloadURL(fileRef))) 
+        switchMap(() => from(getDownloadURL(fileRef)))
       );
     } else {
       return of(null);

@@ -2,14 +2,14 @@
   <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Todos">
       <div>
-        <!--parte central-->
+        <!-- parte central -->
         <div class="d-flex justify-content-center">
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
             <div *ngIf="allDiarios$ | async as diarios; else loading">
-              <mat-card *ngFor="let diario of diarios | paginate: { itemsPerPage: 3, currentPage: pagina}" class="example-card">
+              <mat-card *ngFor="let diario of diarios | paginate: { itemsPerPage: 3, currentPage: pagina}" class="card-todos">
 
                 <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
+                  <div mat-card-avatar class="header-image"></div>
                   <mat-card-title class="tam">{{ diario.usuarioName }}</mat-card-title>
                   <mat-card-subtitle class="nick">{{
                     diario.usuarioNick
@@ -38,22 +38,23 @@
     </mat-tab>
 
     <mat-tab label="Meus Diarios">
-      <div *ngIf="meusDiarios$ | async as diarios; else loading">
+      <div *ngIf="meusDiarios$ | async as diarios; else loading" >
         <div class="perfil">
-          <!-- <div
+          <div
             mat-card-avatar
-            class="example-header-image"
+            class="example-header-image header-image"
             matTooltip="Usuario logado"
-          ></div> -->
-          <div class="galery">
-            <span class="texto"> <strong>Galeria</strong></span>
-          </div>
+          ></div>
+            <span class="texto mt-4 mb-5"> <strong>Galeria</strong></span>
         </div>
+      <div>
 
-        <mat-grid-list cols="3" rowHeight="500px" *ngIf="qtColumns | async as dimension">
+      </div>
+        <mat-grid-list cols="3" rowHeight="500px" *ngIf="qtColumns | async as dimension" class="meus-diarios">
           <mat-grid-tile *ngFor="let diario of diarios" [colspan]="dimension.cols">
+
             <mat-card class="diario-card">
-              <img class="imgfoto" mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
+              <img (click)="showPhotoDetail(diario)" class="card-image" mat-card-image [src]="diario.imagem" />
               <mat-card-title><strong>{{ diario.titulo }}</strong></mat-card-title>
               <small style="text-align: right">
                 {{ diario.local }} / {{ diario.data | date }}</small>
@@ -66,8 +67,10 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-card>
+
           </mat-grid-tile>
         </mat-grid-list>
+
       </div>
     </mat-tab>
   </mat-tab-group>
@@ -80,5 +83,5 @@
 <div class="fab-wrapper">
   <button (click)="onClickAdd()" mat-fab color="primary" matTooltip="Adicionar">
     <mat-icon>add</mat-icon>
-  </button>
+  </button>z
 </div>

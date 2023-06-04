@@ -1,91 +1,94 @@
 .perfil {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    margin-bottom: 40px;
-    font-size: large;
-
-    margin-top: 30px;
-  }
-
-  .galery{
-    margin-top: 50px;
-    margin-bottom: 100px;
-    font-size: bolder;
-   }
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 80px;
-    background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 40px;
+  font-size: large;
+  margin-top: 30px;
 }
 
+.card-todos {
+  max-width: 600px;
+  // max-height: 800px;
+  margin: 40px 0 40px 0;
+}
+
+.header-image {
+  background-image: url('https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png');
+  background-size: cover;
+}
+
+.header-image-todos
+
 .fab-wrapper {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    z-index: 999;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 999;
 }
 
 .example-header-image {
-    background-image: url('https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png');
-    background-size: cover;
+  width: 70px;
+  height: 70px;
 }
 
 
-.diario-card {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    text-align: center;
-    align-items: center;
+// Meus Diarios //
 
-  }
 
-  .div-perfil mat-card-title {
-    margin: auto;
-    margin-left: 10px;
-  }
 
-  .imgfoto{
-    max-width: 90%;
-    width: 395px;
-    height: 395px;
-    object-fit: cover;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    background-size: cover;
-  }
+mat-card .diario-card {
+  // position: absolute;
+  // top: 10px;
+  // left: 10px;
+  // right: 10px;
+  text-align: center;
+  // margin-bottom: 100px;
+  align-items: center;
+  overflow: hidden;
+}
 
-  .card{
-    margin-right: 15px;
-    margin-right: 15px;
+.card-image {
+  // max-width: 90%;
+  cursor: pointer;
+  width: 500px;
+  height: 395px;
+  object-fit: cover;
+  overflow: hidden;
 
-  }
-  .delete, .edit{
-    margin-bottom: 0;
-    margin-top: 0;
-  align-items: right;
+  // margin-left: 20px;
+  // margin-right: 20px;
+  // margin-top: 20px;
+  background-size: cover;
+}
 
-  }
+// .card {
+//   margin-right: 15px;
+// }
 
-  .tam, h2 {
-    font-size: 15px;
-    font-weight: bold;
-  }
+.delete, .edit{
+  margin-bottom: 0;
+  margin-top: 0;
+align-items: right;
 
-    .nick{
-      font-size: 13px;
-  }
+}
 
-  .texto{
-    font-size: 25px;
-    font: bolder;
-    color: #0A184F;
-  }
+
+
+.tam,
+h2 {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.nick {
+  font-size: 13px;
+}
+
+.texto {
+  font-size: 25px;
+  font: bolder;
+  color: #0a184f;
+}

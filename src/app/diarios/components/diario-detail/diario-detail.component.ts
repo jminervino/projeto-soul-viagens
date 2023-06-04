@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { Diario } from 'src/app/core/models/diario';
 import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 
@@ -11,7 +12,8 @@ import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 })
 export class DiarioDetailComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute, 
+    @Inject(MAT_DIALOG_DATA) private data: Diario,
+    private route: ActivatedRoute,
     private diariosService: DiariosService
   ) {}
 
@@ -19,7 +21,9 @@ export class DiarioDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.diario$ = this.diariosService.getDiarioById(
-      this.route.snapshot.params['id']
+      this.data.id!
     );
+
+
   }
 }

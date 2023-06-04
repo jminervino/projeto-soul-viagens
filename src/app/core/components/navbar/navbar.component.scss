@@ -1,9 +1,27 @@
+
 .spacer {
     flex: 1 1 auto;
 }
 
-.navbar {
-    color: rgb(255, 255, 255);
+.navbar-defaunt {
+    color: white;
+    font-weight: 400;
     background-image: url("/assets/img/navbar-bg.png");
     background-size: cover;
 }
+
+
+
+.navbar-home {
+  color: white;
+  font-weight: 400;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  padding: 20px;
+  z-index: 1;
+}
+
+

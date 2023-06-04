@@ -19,12 +19,12 @@ import { first, from, map, Observable, switchMap, tap } from 'rxjs';
 })
 export class AuthService {
   constructor(
-    private auth: Auth, 
-    private db: Firestore, 
-    private router: Router 
+    private auth: Auth,
+    private db: Firestore,
+    private router: Router
   ) {}
 
-  uid?: string; 
+  uid?: string;
 
   get logged() {
     return authState(this.auth).pipe(
@@ -35,34 +35,37 @@ export class AuthService {
   }
 
   get userData() {
-    
+
     const userDoc = doc(this.usuarios, this.uid);
-   
+
     return docData(userDoc).pipe(first());
   }
 
   get isAdmin() {
-    return authState(this.auth).pipe( 
-      first(), 
-      switchMap((user: any) => { 
+    return authState(this.auth).pipe(
+      first(),
+      switchMap((user: any) => {
         const userDoc = doc(this.usuarios, user?.uid);
-        return docData(userDoc).pipe(first()); 
+        return docData(userDoc).pipe(first());
       }),
-      map((user) => user['isAdmin'] === true) 
+      map((user) => user['isAdmin'] === true)
     );
   }
 
-  usuarios = collection(this.db, 'usuarios'); 
+  usuarios = collection(this.db, 'usuarios');
 
   signupEmail(email: string, password: string, nome: string, nick: string) {
-  
+
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     ).pipe(
       tap((creds) => {
         const user = creds.user;
-        const userDoc = doc(this.usuarios, user.uid); 
-        
+        const userDoc = doc(this.usuarios, user.uid);
+        console.log("email",email);
+        console.log("nome",nome);
+        console.log("nick",nick);
+
         setDoc(userDoc, {
           uid: user.uid,
           email: email,
@@ -86,7 +89,7 @@ export class AuthService {
   logout(rota: '/login' | '/confirmar-email') {
     return from(this.auth.signOut()).pipe(
       tap(() => {
-        this.router.navigate([rota]); 
+        this.router.navigate([rota]);
       })
     );
   }
@@ -104,11 +107,11 @@ export class AuthService {
     return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
       tap((creds) => {
         const user = creds.user;
-        const userDoc = doc(this.usuarios, user.uid);       
+        const userDoc = doc(this.usuarios, user.uid);
         setDoc(userDoc, {
           uid: user.uid,
           email: user.email,
-          nome: user.displayName, 
+          nome: user.displayName,
           nick: 'Um usuário do Google',
         });
 

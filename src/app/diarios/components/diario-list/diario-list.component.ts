@@ -7,6 +7,7 @@ import { Diario } from 'src/app/core/models/diario';
 import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 import { DiarioAddComponent } from '../diario-add/diario-add.component';
 import { DiarioEditComponent } from '../diario-edit/diario-edit.component';
+import { DiarioDetailComponent } from '../diario-detail/diario-detail.component';
 
 @Component({
   selector: 'app-diario-list',
@@ -19,7 +20,7 @@ export class DiarioListComponent implements OnInit {
 
   pagina: number = 1;
   collection: any[] = [];
-  
+
   constructor(
     private dialog: MatDialog,
     private diariosService: DiariosService,
@@ -44,6 +45,7 @@ export class DiarioListComponent implements OnInit {
 
   onClickAdd() {
     const ref = this.dialog.open(DiarioAddComponent, { maxWidth: '512px' });
+
     ref.afterClosed().subscribe({
       next: (result) => {
         if (result) {
@@ -83,6 +85,15 @@ export class DiarioListComponent implements OnInit {
         }
       },
     });
+  }
+
+  showPhotoDetail(diario: Diario){
+    this.dialog.open(DiarioDetailComponent, {
+      panelClass: "fullscreen-dialog",
+      maxWidth: "100%",
+      minWidth: "100%",
+      data: {...diario}
+    })
   }
 
   onClickDelete(diario: Diario) {

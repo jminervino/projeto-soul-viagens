@@ -13,9 +13,9 @@ import { AuthModule } from './auth/auth.module';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { DiariosModule } from './diarios/diarios.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-
 import { HomeModule } from './home/home.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { PerfilModule } from './perfil/perfil.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,12 +31,13 @@ import { TranslateModule } from '@ngx-translate/core';
     AuthModule,
     DiariosModule,
     HomeModule,
+    PerfilModule,
     HotToastModule.forRoot({
       position: 'bottom-center',
     }),
     DashboardModule,
     TranslateModule.forRoot()
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent],

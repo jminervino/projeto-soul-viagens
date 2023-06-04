@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'diarios',
     component: DiarioListComponent,
-    // ...canActivate(redirectUnauthorizedToLogin),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
 
   {

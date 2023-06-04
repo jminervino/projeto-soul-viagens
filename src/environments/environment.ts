@@ -4,13 +4,13 @@
 
 export const environment = {
   firebase: {
-    apiKey: "AIzaSyACHCjkrKhtYNtKWE5sNMmNM4WDgPcjqko",
-    authDomain: "conexao-viajante.firebaseapp.com",
-    projectId: "conexao-viajante",
-    storageBucket: "conexao-viajante.appspot.com",
-    messagingSenderId: "1078076881174",
-    appId: "1:1078076881174:web:dd5b7cd79fd6bac6cd3837",
-    measurementId: "G-VG0CEE452F"
+    apiKey: "AIzaSyDruFALxTrjelAbpOnT7M-U_lTQp7OgXlE",
+  authDomain: "conexao-viajante-cbdc6.firebaseapp.com",
+  projectId: "conexao-viajante-cbdc6",
+  storageBucket: "conexao-viajante-cbdc6.appspot.com",
+  messagingSenderId: "139163827004",
+  appId: "1:139163827004:web:14dc3b65ca685b18f97c39",
+  measurementId: "G-S3V1B9CR14"
   },
   production: false,
 };

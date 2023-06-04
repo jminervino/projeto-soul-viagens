@@ -1,0 +1,99 @@
+main {
+  height: 80vh;
+  background-image: linear-gradient(45deg, #4B0AB8, black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-email {
+  background-color: white ;
+  // height: 400px;
+  width: 400px;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 2px 2px 20px 2px black;
+}
+
+.message {
+  font-size: 14px;
+}
+
+
+
+// email animation
+
+.container {
+  float:left;
+  padding-top:50px;
+  padding-bottom:50px;
+  /*background-color: #005A97;
+  width:200px;
+  height:200px;
+  border-radius:0;
+  display:flex;
+  align-self: center;*/
+}
+
+.envelope {
+  position: relative;
+  align-self: center;
+  margin: 0 auto;
+  width: 100px;
+  height: 75px;
+  background-color: #94BDE5;
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.container:hover .moves {
+    transform: rotateX(180deg) translateY(50px);
+  -webkit-transform: rotateX(180deg) translateY(50px);
+  -ms-transform: rotateX(180deg) translateY(50px);
+    transition: .001s 0s;
+}
+
+.container:hover .letter {
+  z-index:40;
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+
+}
+
+.envelope-front {
+  width: 100px;
+  height: 75px;
+  background-color: #3F51B5;
+  position: absolute;
+  z-index:50;
+  -webkit-clip-path: polygon(50% 55%, 100% 1%, 100% 100%, 0 100%, 0 0);
+  clip-path: polygon(50% 55%, 100% 1%, 100% 100%, 0 100%, 0 0);
+}
+
+.envelope-flap {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 50px solid #5664c3;
+  position: absolute;
+}
+
+.envelope-flap.moves {
+  z-index:30;
+  transition: .001s .45s;
+}
+
+.letter {
+  height:60px;
+  width:75px;
+  display:block;
+  background-color:#ffffff;
+  position:absolute;
+  left:12.5px;
+  z-index:20;
+  transition: all .5s ease-in-out;
+}

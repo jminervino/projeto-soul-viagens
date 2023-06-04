@@ -28,6 +28,7 @@ export class DiariosService {
     private authService: AuthService,
     private uploadService: UploadService
   ) {}
+
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
 
   getTodosDiarios(): Observable<Diario[]> {
@@ -54,13 +55,19 @@ export class DiariosService {
   }
 
   addDiario(diario: Diario, imagem?: File) {
+    console.log("Entrou no addDiario");
+
+
     return this.authService.userData.pipe(
       // (1)
       switchMap((user) => {
+        console.log("usuario", user);
+
         return this.uploadService
           .upload(imagem, `diarios/${this.authService.uid}/`)
           .pipe(
             switchMap((url) => {
+
               diario.createdAt = new Date();
               diario.imagem = url ?? 'assets/img/placeholder.png';
               diario.usuarioId = this.authService.uid;

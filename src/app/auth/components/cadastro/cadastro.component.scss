@@ -1,67 +1,63 @@
+main {
+  background-color: #f8f6fc;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    width: 20%;
-    height: 50%;
-
-    margin-top: 6%;
-  
 }
 
-
-.btnLoginBG {
-    background-color:#458AF1;
-    width: 100%;
-    text-align: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    color: white;
+.container-signup {
+  margin-top: 100px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 2px 4px 4px 4px rgba(115, 115, 115, 0.442);
+  width: 50%;
+  height: 600px;
+  display: flex;
 }
 
-.btnLoginBG2{
- 
-    width: 100%;
-    text-align: center;
-    margin-top: 2%;
-    margin-bottom: 3%;
-  
-
- 
+.photo-area {
+  background-image: url("/assets/img/cadastro-img.jpg");
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
 }
 
-.btnLoginBG3{
-    background-color:#3F51B5;
-    width: 100%;
-    text-align: center;
- 
-    color: white;
+.photo-area p {
+  font-weight: 600;
+}
 
-    margin-bottom:50%; 
-    margin-top: 2%;
-
+.btn{
+  text-align: center;
+  margin: 4px;
+  color: white;
 }
 
 
 
-.ou{
-    margin-left:48%; 
- 
+.btn-facebook {
+  background-color: #133C5B;
+}
+
+.cadastro-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cadastro-area mat-form-field,
+.cadastro-area button{
+  width: 100%;
 }
 
 
-.foto1{
-    width: 80%;
-    height: 80%;
-    object-fit: cover;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: 15px;
-    border-radius: 6px;
-}
-.text{
-    margin-left: 40%;
+
+.btn-cadastro {
+  background-color: #458af1;
 }

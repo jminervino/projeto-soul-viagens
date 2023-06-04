@@ -1,33 +1,52 @@
-.foto1{
-    width: 75%;
-    height: 75%;
-    object-fit: cover;
-    margin: 25px 0 25px 15px;
-    border-radius: 6px;
+
+main {
+  height: 100vh;
+  display: flex;
+  background-color: #f8f6fc;
+  justify-content: center;
+  padding-top: 8%;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Joan', serif;
-    margin-top: 230px;
-    color: #458AF1;
 
+.container-signin {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 2px 4px 4px 4px rgba(115, 115, 115, 0.442);
+  height: 500px;
+  width: 50%;
+  background-color: white;
 }
 
-button {
-    width: 100%;
-    margin-bottom: 10px;
+.photo-area {
+  background-image: url("/assets/img/login-img.jpg");
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
 }
 
-.btnLoginBG {
-    background-color:#458AF1;
+.btn{
+  text-align: center;
+  margin: 4px;
+  color: white;
 }
 
-.form {
-    padding-right: 10%;
-    justify-content: center;
-    margin: auto;
+.login-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.login-area button{
+  width: 100%;
+}
+
+.btn-facebook {
+  background-color: #054A7D;
+}
+

@@ -1,59 +1,58 @@
-<div class="forme-wrapper col-12" >
-    <mat-grid-list cols="2">
-        <mat-grid-tile rowspan="1">
-            <img class="foto1" [src]="imagem" alt="">
-        </mat-grid-tile>
-    
-        <mat-grid-tile>
-            <div class="container">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    
-                    <h2 style="margin-left:40%;"><strong>Login</strong></h2>
-    
-                    <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Seu email" formControlName="email" required>
-                        <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
-                        <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
-                        <mat-icon matPrefix>person</mat-icon>
-                    </mat-form-field>
+<main>
+  <div class="container-signin" >
+    <div class="photo-area">
+      <p>Se preferir logar com:</p>
+      <div class="login-options">
+        <button (click)="onLoginGoogle()" type="button" mat-raised-button color="warn">
+          Entrar com o google
+        </button>
 
-                    <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Senha</mat-label>
-                        <input matInput placeholder="Sua senha" formControlName="senha" [type]="hide ? 'password' : 'text'"
-                            required>
-                        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </a>
-                        <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
-                        <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
-                        <mat-icon matPrefix>key</mat-icon>
-                    </mat-form-field>
-    
-                    <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" style="margin-bottom: 15px;"></ngx-recaptcha2>
-    
-                    <div style="margin-left: 30%; margin-bottom: 3%;">
-                        <a routerLink="/recuperar-senha">Esqueci minha senha</a>
-                    </div>
-    
-                    <button class="btnLoginBG" mat-raised-button color="primary"
-                        [disabled]="loginForm.invalid">Login</button>
-    
-                    <span id="elementLine" style="margin-left:48%; margin-bottom: 3%;">ou</span>
-    
-                    <button (click)="onLoginGoogle()" type="button" mat-raised-button color="warn">
-                        Entrar com o Google
-                    </button>
-    
-                    <button (click)="onLoginFacebook()" type="button" mat-raised-button color="primary"
-                        style="margin-bottom: 200px;">
-                        Entrar com o Facebook
-                    </button>
-    
-                </form>
-    
+        <button class="btn btn-facebook" type="button" mat-raised-button color="primary">
+          Entrar com Facebook
+        </button>
+      </div>
+    </div>
+
+    <div class="login-area container">
+      <h2 ><strong>Login</strong></h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Seu email" formControlName="email" required>
+                <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
+                <mat-icon matPrefix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Senha</mat-label>
+                <input matInput placeholder="Sua senha" formControlName="senha" [type]="hide ? 'password' : 'text'"
+                    required>
+                <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </a>
+                <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
+                <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
+                <mat-icon matPrefix>key</mat-icon>
+            </mat-form-field>
+
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" style="margin-bottom: 15px;"></ngx-recaptcha2>
+
+            <div style="margin-left: 30%; margin-bottom: 3%;">
+                <a routerLink="/recuperar-senha">Esqueci minha senha</a>
             </div>
-        </mat-grid-tile>
-    </mat-grid-list>
+
+            <button class="btn" mat-raised-button color="primary"
+                [disabled]="loginForm.invalid">Login</button>
+
+
+
+        </form>
+
+    </div>
 </div>
+
+</main>
