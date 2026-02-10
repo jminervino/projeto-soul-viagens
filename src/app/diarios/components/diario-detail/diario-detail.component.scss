@@ -1,15 +1,195 @@
-:root {
-  --var-repeat: auto-fill;
+// =============================================================================
+// Diario Detail — Instagram-style modal + fallback page
+// =============================================================================
+
+$accent: #ff6b35;
+$navy: #0f172a;
+$white: #ffffff;
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-900: #0f172a;
+
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$ease: cubic-bezier(0.33, 1, 0.68, 1);
+
+.detail {
+  font-family: $font-sans;
 }
 
-.container {
-  width: 70%;
-  margin-top: 70px;
-  margin-bottom: 70px;
+// Modal variant
+.detail--modal {
+  position: relative;
+  max-height: 85vh;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-.container img {
+.detail__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba($navy, 0.6);
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s $ease;
+
+  &:hover {
+    background: rgba($navy, 0.8);
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.detail__layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 400px;
+  max-height: 85vh;
+}
+
+.detail__image-wrap {
+  flex: 1.2;
+  min-width: 0;
+  background: $gray-100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.detail__image {
   width: 100%;
-background-size: cover;
-  margin: auto;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  max-width: 400px;
+  background: $white;
+}
+
+.detail__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid $gray-200;
+}
+
+.detail__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $gray-200 url('https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png') center / cover;
+  flex-shrink: 0;
+}
+
+.detail__author {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.detail__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $gray-900;
+  line-height: 1.3;
+}
+
+.detail__nick {
+  font-size: 0.75rem;
+  color: $gray-500;
+  line-height: 1.3;
+}
+
+.detail__body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.detail__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $gray-900;
+  margin: 0 0 12px;
+}
+
+.detail__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: $gray-500;
+  margin-bottom: 16px;
+}
+
+.detail__meta-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: $gray-400;
+}
+
+.detail__text {
+  font-size: 0.9375rem;
+  color: $gray-900;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.detail__loading {
+  padding: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+// Non-modal (standalone route) fallback
+:host:not(.detail--modal) {
+  .detail__layout {
+    max-width: 900px;
+    margin: 32px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .detail__layout {
+    flex-direction: column;
+    max-height: none;
+  }
+
+  .detail__image-wrap {
+    max-height: 50vh;
+  }
+
+  .detail__content {
+    max-width: none;
+    min-width: 0;
+  }
 }

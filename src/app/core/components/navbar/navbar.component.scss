@@ -1,9 +1,164 @@
-.spacer {
-    flex: 1 1 auto;
+// =============================================================================
+// Navbar
+// =============================================================================
+
+$white: #ffffff;
+$gray-100: #f1f5f9;
+$gray-600: #475569;
+$gray-900: #0f172a;
+$accent: #ff6b35;
+$accent-light: #ff8c69;
+$sky: #1a8fe3;
+
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$ease: cubic-bezier(0.33, 1, 0.68, 1);
+$duration: 0.2s;
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  background-image: url('/assets/img/navbar-bg.png');
+  background-size: cover;
+  background-position: center;
+  font-family: $font-sans;
 }
 
-.navbar {
-    color: rgb(255, 255, 255);
-    background-image: url("/assets/img/navbar-bg.png");
-    background-size: cover;
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba($gray-900, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+
+.nav__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  padding: 8px 0 !important;
+  min-width: 0;
+  border-radius: 8px;
+  transition: opacity $duration $ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.nav__logo-img {
+  width: 140px;
+  height: auto;
+  max-height: 48px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav__link {
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  letter-spacing: -0.01em;
+  color: rgba($white, 0.9) !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+  min-height: 40px !important;
+  transition: background $duration $ease, color $duration $ease;
+
+  &:hover {
+    background: rgba($white, 0.1) !important;
+    color: $white !important;
+  }
+}
+
+.nav__link--text {
+  margin-right: 4px;
+}
+
+.nav__link--cta {
+  background: $accent !important;
+  color: $white !important;
+  font-weight: 600 !important;
+
+  &:hover {
+    background: darken($accent, 5%) !important;
+    box-shadow: 0 4px 12px rgba($accent, 0.35);
+  }
+}
+
+.nav__email {
+  font-size: 0.8125rem;
+  color: rgba($white, 0.85);
+  padding: 6px 12px;
+  margin: 0 4px;
+  background: rgba($white, 0.08);
+  border-radius: 20px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav__btn-logout {
+  color: rgba($white, 0.9) !important;
+  margin-left: 4px;
+  transition: background $duration $ease;
+
+  &:hover {
+    background: rgba($white, 0.12) !important;
+    color: $white !important;
+  }
+}
+
+.nav__link--cta.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .nav__inner {
+    padding: 0 16px;
+  }
+
+  .nav__logo-img {
+    width: 110px;
+  }
+
+  .nav__actions {
+    gap: 4px;
+  }
+
+  .nav__link {
+    padding: 0 10px !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .nav__email {
+    max-width: 100px;
+    font-size: 0.75rem;
+  }
 }

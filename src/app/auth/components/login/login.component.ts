@@ -10,7 +10,7 @@ import { TOAST_MESSAGES, VALIDATION } from 'src/app/core/constants/app.constants
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  readonly imagem = 'https://www.blogvambora.com.br/wp-content/uploads/2019/08/chip-de-viagem-europa.jpg';
+  readonly imagem = 'https://www.unitur.com.br/wp-content/uploads/2020/04/picture-2606675_1280-768x512.jpg';
   readonly siteKey = '6Lf5nmQgAAAAAGBE82rwfwIllPqz90bkIuXEjzei';
 
   loginForm = this.fb.group({
@@ -44,15 +44,6 @@ export class LoginComponent implements OnInit {
   onLoginGoogle(): void {
     this.authService
       .loginGoogle()
-      .pipe(
-        this.toast.observe(TOAST_MESSAGES.LOGIN_GOOGLE_FACEBOOK)
-      )
-      .subscribe();
-  }
-
-  onLoginFacebook(): void {
-    this.authService
-      .loginFacebook()
       .pipe(
         this.toast.observe(TOAST_MESSAGES.LOGIN_GOOGLE_FACEBOOK)
       )

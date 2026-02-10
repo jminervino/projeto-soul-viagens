@@ -1,0 +1,225 @@
+# Soul Viagens — Regras Globais de UI/UX e Código
+
+Documento de referência para toda implementação no projeto. **Sempre basear decisões de UI, UX e código neste arquivo.**
+
+---
+
+## 1. Stack do Projeto (real)
+
+- **Framework**: Angular
+- **UI**: Angular Material (MaterialModule)
+- **Estilização**: SCSS (por componente + `styles.scss` global)
+- **Backend**: Firebase (Auth, Firestore, Storage)
+- **Feedback**: Hot Toast (ngneat/hot-toast)
+- **Layout**: Bootstrap 4 (grid/utilities onde usado)
+- **Ícones**: Material Icons + Bootstrap Icons (bi) onde já existem
+
+---
+
+## 2. Análise de UI/UX do Sistema
+
+### 2.1 Cores — Paleta única (visão sólida de UI & UX)
+
+**Fonte única de verdade:** variáveis CSS em `src/styles.scss` (`:root`). Use `var(--color-*)` em qualquer componente ou repita o hex abaixo em variáveis SCSS locais.
+
+**Cores indispensáveis (uso no sistema):**
+
+| Token / CSS variable       | Hex        | Uso no sistema |
+|----------------------------|------------|-----------------|
+| `sunset-orange`            | `#ff6b35`  | CTAs primários, gradientes, faixa hero→laranja |
+| `sunset-pink`              | `#ff8c69`  | Gradiente com orange em botões e destaques |
+| `ocean-blue`               | `#004e89`  | Links, títulos de seção, footer principal, botão Facebook/cadastro |
+| `sky-blue`                 | `#1a8fe3`  | Foco em inputs, links claros, indicadores ativos |
+| `sand-cream`               | `#fff8f0`  | Fundo de páginas claras (ex.: home, login) |
+| `deep-navy`                | `#001a2c`  | Overlays de hero, barra inferior do footer, cards squad, gradientes escuros |
+| `white`                    | `#ffffff`  | Fundos de cards, texto em fundos escuros |
+| `black`                    | `#1a1a1a`  | Texto principal em fundos claros (evitar #000) |
+| `gray-50` … `gray-900`     | escala     | Bordas, texto secundário, fundos neutros, indicadores inativos |
+
+**Cores removidas / substituídas (não usar):**
+
+| Cor antiga        | Motivo                          | Substituir por        |
+|-------------------|----------------------------------|------------------------|
+| `#458AF1`         | Azul fora da paleta             | `ocean-blue` / `sky-blue` |
+| `#3F51B5`         | Material Indigo, inconsistente   | `ocean-blue`          |
+| `#3C7AE7`         | Azul genérico                    | `ocean-blue` (títulos) |
+| `#0A184F` / `#0B194B` | Navy antigo                  | `deep-navy`           |
+| `rgb(69, 138, 241)` | = #458AF1                    | `ocean-blue`          |
+| `#9ACEFE`         | Azul claro fora da paleta        | `sky-blue`            |
+| `#000`            | Preto puro (muito duro)          | `black` / `gray-900`   |
+| `aqua`            | Cor de debug                     | `gray-100`            |
+| `green`           | Cor de debug / fora da marca     | `ocean-blue` (botão)  |
+| `#d7d228`         | Amarelo não alinhado à marca     | Removido (propriedade TS) |
+
+**Regras:**
+
+1. **Nunca** introduzir cores fora desta paleta (nem hex nem nomes como `aqua`, `green`).
+2. Em SCSS: usar `var(--color-*)` ou variáveis locais que repitam exatamente os hex acima.
+3. CTAs primários: gradiente `sunset-orange` → `sunset-pink`; secundários e “barra escura”: `ocean-blue` e `deep-navy`.
+4. Objetivo: UX limpa, moderna e agradável — poucas cores, hierarquia clara, sem competição visual.
+
+### 2.2 Tipografia
+
+- **Display / Títulos**: `Playfair Display`, 600–700, `letter-spacing: -0.02em`
+- **Body / UI**: `Instrument Sans`, 400–700, `letter-spacing: -0.01em`
+- **Global (styles.scss)**: hoje `Joan` em `body` — em telas novas preferir Instrument Sans; Joan pode permanecer onde já está até refatoração.
+
+Incluir fontes via `@import url('https://fonts.googleapis.com/...')` no SCSS do componente ou em `styles.scss` quando for padrão global.
+
+### 2.3 Padrões visuais (design language)
+
+- **Bordas**: arredondadas (8–24px). Evitar cantos 0.
+- **Sombras**: em camadas (ex.: `0 4px 12px rgba(0,0,0,0.06)` para cards).
+- **CTAs primários**: gradiente `linear-gradient(135deg, sunset-orange, sunset-pink)`; hover com sombra laranja suave.
+- **Botões secundários**: outline ou fundo neutro; hover com fundo `gray-50` ou equivalente.
+- **Links**: cor `sky-blue`; hover `ocean-blue`; sempre `:focus-visible` com outline acessível.
+- **Micro-interações**: transição 0.2–0.25s, curva `cubic-bezier(0.33, 1, 0.68, 1)`.
+
+### 2.4 Referências de inspiração
+
+- Apple: simplicidade, espaço em branco, hierarquia clara.
+- Material 3: estados (hover, focus, disabled), elevation, outline em inputs.
+- Notion: clareza, tipografia legível, poucos elementos competindo.
+- Linear: foco, CTAs óbvios, pouca decoração.
+
+### 2.5 Acessibilidade (obrigatório)
+
+- Contraste mínimo 4.5:1 para texto; 3:1 para UI.
+- `aria-label` em ícones-only e em controles de carrossel.
+- `:focus-visible` em links e botões (outline 2px, offset 2px).
+- Tags semânticas: `nav`, `main`, `section`, `footer`, `h1`–`h6`.
+- Formulários: `label` associado a cada input; `mat-error` para erros.
+
+### 2.6 Mobile e toque
+
+- Área de toque mínima 44x44px para links e botões.
+- Evitar interações que dependam só de hover; manter fallback para tap.
+- Em breakpoints pequenos: CTAs em coluna se necessário; navegação legível.
+
+---
+
+## 3. Padrões de Código
+
+### 3.1 Linguagem e estrutura
+
+- **Linguagem**: TypeScript (strict onde possível).
+- **Estrutura**: módulos por domínio (auth, core, home, diarios, dashboard, shared); componentes em pastas com `.html`, `.ts`, `.scss`, `.spec.ts`.
+
+### 3.2 Nomenclatura
+
+- **Componentes**: PascalCase (`LoginComponent`, `NavbarComponent`).
+- **Selectors**: prefixo `app-` + kebab-case (`app-login`, `app-navbar`, `app-diario-list`).
+- **Arquivos**: kebab-case (`login.component.ts`, `navbar.component.scss`).
+- **Classes em SCSS**: BEM-like com prefixo do componente (`nav__inner`, `footer__link`, `login-btn--primary`).
+- **Variáveis SCSS**: kebab-case ou tokens em kebab (`$sunset-orange`, `$gray-100`).
+- **Constantes TS**: UPPER_SNAKE_CASE; agrupar em `app.constants.ts` ou por feature.
+
+### 3.3 Angular — Componentes
+
+- Um componente por pasta; selector = `app-<nome>`.
+- Template: sem estilos inline; usar classes no SCSS do componente.
+- Inputs/Outputs tipados; evitar `any` em tipos públicos.
+- Lógica de apresentação no componente; regras de negócio em services.
+
+### 3.4 Angular — Serviços e módulos
+
+- Serviços em `core/services` ou no módulo do domínio; injetáveis onde necessário.
+- Rotas e constantes (ROUTES, VALIDATION, TOAST_MESSAGES) em `core/constants`.
+- Módulos lazy-loaded por rota (auth, home, diarios, dashboard); CoreModule com navbar/footer e exports comuns.
+
+### 3.5 SCSS por componente
+
+- **Ordem**: tokens/variáveis no topo; depois base (`.component`); depois blocos e elementos; por fim estados e media queries.
+- **Escopo**: estilos só para o componente; não usar `*` global dentro do .scss do componente; evitar estilos que vazem para outros componentes.
+- **Tokens**: copiar do design system (cores, radius, sombras, duração) no início do arquivo quando não houver arquivo global de tokens.
+- **Responsivo**: mobile first; `min-width` para breakpoints (ex.: 600px, 768px, 900px).
+
+Exemplo de estrutura:
+
+```scss
+// Tokens
+$sunset-orange: #ff6b35;
+$radius-md: 14px;
+
+.component {
+  // base
+}
+.component__block { }
+.component__block--modifier { }
+@media (max-width: 768px) { }
+```
+
+### 3.6 HTML (templates)
+
+- Preferir atributos semânticos e acessíveis: `role`, `aria-label`, `aria-hidden` onde fizer sentido.
+- Botões de ícone: `button` ou `a` com `mat-icon-button` + `aria-label` ou `matTooltip`.
+- Formulários: `formGroup`/`formControlName`; validação e `mat-error` sem alterar regras de negócio.
+
+---
+
+## 4. Padrões de Componentes UI
+
+### 4.1 Botões
+
+- **Primário (CTA)**: `mat-raised-button` + classe custom (ex.: `nav__link--cta`, `login-btn--primary`); gradiente orange→pink; hover com sombra e leve `translateY(-1px)`.
+- **Secundário**: `mat-button` ou `mat-stroked-button`; texto ou borda; hover com fundo neutro.
+- **Ícone**: `mat-icon-button`; sempre `aria-label` ou `matTooltip`.
+- Desabilitado: manter `[disabled]` e estilo com opacidade reduzida.
+
+### 4.2 Links
+
+- Navegação: `a mat-button` ou `a` com classe; `routerLink` quando for rota interna.
+- No footer/listas: `<a class="footer__link">` com hover (sublinhado ou cor); `:focus-visible` com outline.
+
+### 4.3 Formulários (Material)
+
+- `mat-form-field` com `appearance="outline"` em telas novas.
+- Prefix/suffix com `matPrefix`/`matSuffix` quando fizer sentido (ex.: ícone, toggle de senha).
+- Erros com `mat-error` e mensagens definidas nas regras de negócio (não alterar texto/validação sem pedido).
+
+### 4.4 Cards e containers
+
+- Card: fundo branco, `border-radius` 14–24px, sombra em camadas; hover opcional com `translateY(-2px)` e sombra maior.
+- Container de página: `max-width` (ex.: 1200px), `margin: 0 auto`, `padding` horizontal 24px (mobile 16px).
+
+### 4.5 Estados
+
+Todo elemento interativo deve ter:
+
+- Default, Hover, Focus (visible), Active (opcional), Disabled.
+- Loading/Error quando houver ação assíncrona (ex.: botão de login).
+
+---
+
+## 5. Regras de Negócio (não alterar sem pedido)
+
+- Fluxos de auth: login (email/senha, Google, Facebook), cadastro, recuperar senha, confirmar email.
+- Validações: email obrigatório e formato; senha mínimo 8 caracteres (VALIDATION.PASSWORD_MIN_LENGTH).
+- Mensagens de toast: usar TOAST_MESSAGES em `app.constants.ts`.
+- Rotas: ROUTES em constants; guards (ex.: only-admin) conforme definido.
+- Conteúdo de textos e labels (ex.: “Termos de Privacidadade”) não deve ser alterado a menos que solicitado.
+
+---
+
+## 6. Git e Commits
+
+- Conventional Commits: `feat:`, `fix:`, `refactor:`, `docs:`, `style:`.
+- Não commitar mudanças que quebrem regras de negócio ou que desrespeitem este documento.
+
+---
+
+## 7. Quando codar — Checklist
+
+Ao criar ou editar UI/UX e código:
+
+1. **Cores**: usar tokens do design system; não introduzir hex soltos fora da paleta.
+2. **Tipografia**: Playfair Display (títulos), Instrument Sans (UI) em telas novas.
+3. **Componentes**: BEM-like no SCSS; sem inline styles; botões e links com estados e acessibilidade.
+4. **Acessibilidade**: contraste, focus-visible, aria/labels, semântica.
+5. **Responsivo**: mobile first; toque ≥ 44px; breakpoints consistentes.
+6. **Regras de negócio**: não alterar validações, mensagens, rotas ou fluxos sem solicitação explícita.
+7. **Referência única**: em dúvida, seguir este `clinerules` e o skill `.claude/skills/travel-ui-design/SKILL.md` para detalhes de componentes (ex.: Photo Card, inputs, botões).
+
+---
+
+*Última atualização: análise com base em navbar, footer, home, login e demais componentes do projeto Soul Viagens (Angular + Material + SCSS + Firebase).*

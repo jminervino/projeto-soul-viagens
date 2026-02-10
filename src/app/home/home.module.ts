@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
+import { MaterialModule } from '../shared/material.module';
 import { HomeComponent } from './components/home/home.component';
 import { HomeCarouselComponent } from './components/home-carousel/home-carousel.component';
-
 
 @NgModule({
   declarations: [
@@ -12,7 +12,8 @@ import { HomeCarouselComponent } from './components/home-carousel/home-carousel.
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    MaterialModule
   ]
 })
 export class HomeModule { }

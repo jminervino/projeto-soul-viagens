@@ -1,19 +1,31 @@
-.btnCheck2 {
-    background-color: green;
-}
+$accent: #ff6b35;
+$gray-900: #0f172a;
+$white: #ffffff;
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  font-family: $font-sans;
 }
 
 .form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 350px;
+}
+
+h2[mat-dialog-title] {
+  font-weight: 600;
+  color: $gray-900;
+}
+
+.btnCheck {
+  background-color: $accent !important;
+  color: $white !important;
 }

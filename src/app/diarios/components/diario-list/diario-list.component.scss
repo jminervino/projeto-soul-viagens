@@ -1,91 +1,405 @@
-.perfil {
+// =============================================================================
+// Diary Feed
+// =============================================================================
+
+$accent: #ff6b35;
+$navy: #0f172a;
+$white: #ffffff;
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-900: #0f172a;
+
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$ease: cubic-bezier(0.33, 1, 0.68, 1);
+$duration: 0.2s;
+
+// "Todos": fluxo natural (scroll da página até o footer)
+:host {
+  display: block;
+}
+
+// "Meus Diários": flex para preencher e footer fixo
+:host-context(body.layout-sticky-footer) {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed {
+  font-family: $font-sans;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px 80px;
+  width: 100%;
+}
+
+:host-context(body.layout-sticky-footer) .feed {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding-bottom: 80px;
+}
+
+// =============================================================================
+// Tabs
+// =============================================================================
+.feed__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-bottom: 1px solid $gray-200;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 64px; // below navbar
+  background: $white;
+  z-index: 10;
+  padding-top: 8px;
+}
+
+.feed__tab {
+  font-family: $font-sans;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: $gray-400;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: color $duration $ease, border-color $duration $ease;
+
+  &:hover {
+    color: $gray-900;
+  }
+}
+
+.feed__tab--active {
+  color: $gray-900;
+  border-bottom-color: $gray-900;
+}
+
+// "Todos": fluxo natural, sem scroll interno
+.feed__content {
+  min-height: 200px;
+}
+
+// "Meus Diários": preenche espaço, conteúdo no topo, sem overflow
+:host-context(body.layout-sticky-footer) .feed__content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    margin-bottom: 40px;
-    font-size: large;
-
-    margin-top: 30px;
   }
-
-  .galery{
-    margin-top: 50px;
-    margin-bottom: 100px;
-    font-size: bolder;
-   }
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 80px;
-    background-color: aqua;
 }
 
-.fab-wrapper {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    z-index: 999;
+// =============================================================================
+// Feed Cards (Todos tab)
+// =============================================================================
+.feed__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.example-header-image {
-    background-image: url('https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png');
-    background-size: cover;
+.card {
+  background: $white;
+  border: 1px solid $gray-200;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.card__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $gray-200 url('https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png') center / cover;
+  flex-shrink: 0;
+}
+
+.card__author {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $gray-900;
+  line-height: 1.3;
+}
+
+.card__nick {
+  font-size: 0.75rem;
+  color: $gray-500;
+  line-height: 1.3;
+}
+
+.card__image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: $gray-100;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover .card__image {
+    transform: scale(1.02);
+  }
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s $ease;
+}
+
+.card__body {
+  padding: 14px 16px 8px;
+}
+
+.card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $gray-900;
+  margin: 0 0 6px;
+}
+
+.card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: $gray-500;
+  margin-bottom: 8px;
+}
+
+.card__meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: $gray-300;
+}
+
+.card__text {
+  font-size: 0.875rem;
+  color: $gray-500;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 8px;
+}
+
+.card__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: $gray-400;
+  cursor: pointer;
+  transition: color $duration $ease, background $duration $ease;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    color: $gray-900;
+    background: $gray-100;
+  }
+}
+
+// =============================================================================
+// Gallery (Meus Diários tab)
+// =============================================================================
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
 }
 
 
-.diario-card {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    text-align: center;
-    align-items: center;
+.gallery__card {
+  position: relative;
+  aspect-ratio: 1;
+  background: $gray-100;
+  overflow: hidden;
+  cursor: pointer;
 
+  &:hover .gallery__card-overlay {
+    opacity: 1;
   }
 
-  .div-perfil mat-card-title {
-    margin: auto;
-    margin-left: 10px;
+  &:hover .gallery__card-img {
+    transform: scale(1.03);
+  }
+}
+
+.gallery__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s $ease;
+}
+
+.gallery__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba($navy, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity $duration $ease;
+}
+
+.gallery__card-title {
+  color: $white;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 8px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gallery__card-actions {
+  display: flex;
+  gap: 4px;
+
+  button {
+    color: $white !important;
+
+    &:hover {
+      background: rgba($white, 0.15) !important;
+    }
+  }
+}
+
+// =============================================================================
+// Empty State
+// =============================================================================
+.feed__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 24px;
+  text-align: center;
+  color: $gray-500;
+}
+
+.feed__empty-icon {
+  font-size: 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+  color: $gray-300;
+  margin-bottom: 16px;
+}
+
+.feed__empty p {
+  margin: 0 0 20px;
+  font-size: 0.9375rem;
+}
+
+.feed__empty-btn {
+  background: $accent !important;
+  color: $white !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+// =============================================================================
+// Pagination
+// =============================================================================
+.feed__pagination {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 8px;
+}
+
+// =============================================================================
+// FAB
+// =============================================================================
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+}
+
+.fab__btn {
+  background: $accent !important;
+  color: $white !important;
+  box-shadow: 0 4px 16px rgba($accent, 0.35) !important;
+  transition: transform $duration $ease, box-shadow $duration $ease !important;
+
+  &:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 24px rgba($accent, 0.45) !important;
+  }
+}
+
+// =============================================================================
+// Responsive
+// =============================================================================
+@media (max-width: 640px) {
+  .feed {
+    padding: 16px 0 80px;
   }
 
-  .imgfoto{
-    max-width: 90%;
-    width: 395px;
-    height: 395px;
-    object-fit: cover;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    background-size: cover;
+  .feed__tabs {
+    top: 64px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .card{
-    margin-right: 15px;
-    margin-right: 15px;
-
-  }
-  .delete, .edit{
-    margin-bottom: 0;
-    margin-top: 0;
-  align-items: right;
-
+  .card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
-  .tam, h2 {
-    font-size: 15px;
-    font-weight: bold;
+  .gallery {
+    gap: 2px;
   }
-
-    .nick{
-      font-size: 13px;
-  }
-
-  .texto{
-    font-size: 25px;
-    font: bolder;
-    color: #0A184F;
-  }
+}

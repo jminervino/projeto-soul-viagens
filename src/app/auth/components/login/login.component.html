@@ -1,59 +1,70 @@
-<div class="forme-wrapper col-12" >
-    <mat-grid-list cols="2">
-        <mat-grid-tile rowspan="1">
-            <img class="foto1" [src]="imagem" alt="">
-        </mat-grid-tile>
-    
-        <mat-grid-tile>
-            <div class="container">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    
-                    <h2 style="margin-left:40%;"><strong>Login</strong></h2>
-    
-                    <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Seu email" formControlName="email" required>
-                        <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
-                        <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
-                        <mat-icon matPrefix>person</mat-icon>
-                    </mat-form-field>
+<main class="login-page">
+  <div class="login-grid">
+    <!-- Hero: imagem inspiradora de viagem -->
+    <section class="login-hero" aria-hidden="true">
+      <img class="login-hero__image" [src]="imagem" alt="" />
+      <div class="login-hero__overlay"></div>
+      <div class="login-hero__badge">
+        <span class="login-hero__tagline">Soul Viagens</span>
+        <p class="login-hero__sub">Sua próxima aventura começa aqui.</p>
+      </div>
+    </section>
 
-                    <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Senha</mat-label>
-                        <input matInput placeholder="Sua senha" formControlName="senha" [type]="hide ? 'password' : 'text'"
-                            required>
-                        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </a>
-                        <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
-                        <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
-                        <mat-icon matPrefix>key</mat-icon>
-                    </mat-form-field>
-    
-                    <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" style="margin-bottom: 15px;"></ngx-recaptcha2>
-    
-                    <div style="margin-left: 30%; margin-bottom: 3%;">
-                        <a routerLink="/recuperar-senha">Esqueci minha senha</a>
-                    </div>
-    
-                    <button class="btnLoginBG" mat-raised-button color="primary"
-                        [disabled]="loginForm.invalid">Login</button>
-    
-                    <span id="elementLine" style="margin-left:48%; margin-bottom: 3%;">ou</span>
-    
-                    <button (click)="onLoginGoogle()" type="button" mat-raised-button color="warn">
-                        Entrar com o Google
-                    </button>
-    
-                    <button (click)="onLoginFacebook()" type="button" mat-raised-button color="primary"
-                        style="margin-bottom: 200px;">
-                        Entrar com o Facebook
-                    </button>
-    
-                </form>
-    
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
+    <!-- Formulário: card elevado, foco total na ação -->
+    <section class="login-form-section">
+      <div class="login-form-card">
+        <header class="login-form-header">
+          <h1 class="login-form-title">Entrar</h1>
+          <p class="login-form-subtitle">Acesse sua conta para continuar.</p>
+        </header>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <mat-form-field appearance="outline" class="login-field">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="seu@email.com" formControlName="email" required type="email" />
+            <mat-icon matPrefix>mail_outline</mat-icon>
+            <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="login-field">
+            <mat-label>Senha</mat-label>
+            <input matInput placeholder="Sua senha" formControlName="senha" [type]="hide ? 'password' : 'text'" required />
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="hide ? 'Mostrar senha' : 'Ocultar senha'" [attr.aria-pressed]="!hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
+            <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres</mat-error>
+          </mat-form-field>
+
+          <div class="login-forgot-wrap">
+            <a routerLink="/recuperar-senha" class="login-forgot-link">Esqueci minha senha</a>
+          </div>
+
+          <div class="login-recaptcha">
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey"></ngx-recaptcha2>
+          </div>
+
+          <button type="submit" class="login-btn login-btn--primary" mat-raised-button color="primary" [disabled]="loginForm.invalid">
+            <span class="login-btn__text">Entrar</span>
+            <mat-icon class="login-btn__icon">arrow_forward</mat-icon>
+          </button>
+
+          <div class="login-divider">
+            <span class="login-divider__text">ou continue com</span>
+          </div>
+
+          <button type="button" class="login-btn login-btn--google" (click)="onLoginGoogle()">
+            <img class="login-btn__logo" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" width="20" height="20" />
+            <span class="login-btn__text">Google</span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          Não tem uma conta? <a routerLink="/cadastro" class="login-footer__link">Cadastre-se</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

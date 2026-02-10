@@ -36,7 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
     }),
     DashboardModule,
     TranslateModule.forRoot()
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent],

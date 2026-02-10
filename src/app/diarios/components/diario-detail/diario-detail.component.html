@@ -1,19 +1,38 @@
-<div *ngIf="diario$ | async as diario; else loading">
-  <div class="container" id="container">
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
-        <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <img mat-card-image [src]="diario.imagem" alt="Photo" />
-        <h2>{{ diario.titulo }}</h2>
-        <small>{{ diario.data | date }} | {{ diario.local }}</small>
-        <p>{{ diario.corpo }}</p>
-      </mat-card-content>
-    </mat-card>
+<div class="detail" [class.detail--modal]="isModal" *ngIf="diario$ | async as diario; else loading">
+  <button *ngIf="isModal" class="detail__close" (click)="close()" aria-label="Fechar">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div class="detail__layout">
+    <div class="detail__image-wrap">
+      <img class="detail__image" [src]="diario.imagem" [alt]="diario.titulo" />
+    </div>
+
+    <div class="detail__content">
+      <div class="detail__header">
+        <div class="detail__avatar"></div>
+        <div class="detail__author">
+          <span class="detail__name">{{ diario.usuarioName }}</span>
+          <span class="detail__nick">{{ diario.usuarioNick }}</span>
+        </div>
+      </div>
+
+      <div class="detail__body">
+        <h2 class="detail__title">{{ diario.titulo }}</h2>
+        <div class="detail__meta">
+          <mat-icon class="detail__meta-icon">calendar_today</mat-icon>
+          <span>{{ diario.data | date:'dd MMM yyyy' }}</span>
+          <mat-icon class="detail__meta-icon">place</mat-icon>
+          <span>{{ diario.local }}</span>
+        </div>
+        <p class="detail__text">{{ diario.corpo }}</p>
+      </div>
+    </div>
   </div>
 </div>
+
 <ng-template #loading>
-  <app-loader label="Carregando diário..."></app-loader>
+  <div class="detail__loading">
+    <app-loader label="Carregando diário..."></app-loader>
+  </div>
 </ng-template>

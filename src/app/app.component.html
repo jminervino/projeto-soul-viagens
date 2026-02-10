@@ -1,3 +1,5 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-navbar *ngIf="showLayout$ | async"></app-navbar>
+<main class="app-content" role="main">
+  <router-outlet></router-outlet>
+</main>
+<app-footer *ngIf="showLayout$ | async"></app-footer>

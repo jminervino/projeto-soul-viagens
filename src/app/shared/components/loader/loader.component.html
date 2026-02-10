@@ -1,4 +1,4 @@
-<div>
-    <mat-spinner color="accent"></mat-spinner>
-    <h3>{{label}}</h3>
+<div class="loader">
+  <div class="loader__spinner" aria-hidden="true"></div>
+  <p class="loader__label" *ngIf="label">{{ label }}</p>
 </div>

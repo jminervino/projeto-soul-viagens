@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
 import { Diario } from 'src/app/core/models/diario';
 import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 
@@ -10,16 +11,29 @@ import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
   styleUrls: ['./diario-detail.component.scss'],
 })
 export class DiarioDetailComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute, 
-    private diariosService: DiariosService
-  ) {}
-
   diario$?: Observable<Diario>;
+  isModal = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private diariosService: DiariosService,
+    @Optional() private dialogRef: MatDialogRef<DiarioDetailComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: Diario
+  ) {
+    this.isModal = !!this.dialogRef;
+  }
+
+  close(): void {
+    this.dialogRef?.close();
+  }
 
   ngOnInit(): void {
-    this.diario$ = this.diariosService.getDiarioById(
-      this.route.snapshot.params['id']
-    );
+    if (this.data) {
+      this.diario$ = of(this.data);
+    } else {
+      this.diario$ = this.diariosService.getDiarioById(
+        this.route.snapshot.params['id']
+      );
+    }
   }
 }

@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
     ) {}
 
   logged$?: Observable<any>;
-  corDaNav: string = "#d7d228"
 
   logout() {
     this.authService.logout('/login')

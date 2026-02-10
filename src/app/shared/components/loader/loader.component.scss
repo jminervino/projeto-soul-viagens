@@ -1,0 +1,35 @@
+// =============================================================================
+// Loader — CSS-based neutral spinner (sem Material/pink)
+// =============================================================================
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 24px;
+  min-height: 120px;
+}
+
+.loader__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #64748b;
+  border-radius: 50%;
+  animation: loader-spin 0.8s linear infinite;
+}
+
+.loader__label {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

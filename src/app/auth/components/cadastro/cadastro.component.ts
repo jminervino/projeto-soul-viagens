@@ -27,6 +27,9 @@ export class CadastroComponent implements OnInit {
     { validators: [this.matchPasswords] }
   );
 
+  hidePassword = true;
+  hideConfirm = true;
+
   matchPasswords(control: AbstractControl): ValidationErrors | null {
     return control.get('senha')!.value !== control.get('confirma_senha')!.value
       ? { matchPasswords: true }

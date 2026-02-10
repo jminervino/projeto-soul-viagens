@@ -1,20 +1,26 @@
-<nav class="navbar">
-    <div class="container-fluid">
-        <a mat-button routerLink="/home" class="link">
-            <img src="/assets/img/logo.png" style="width: 160px; margin: -30px;">
-        </a>
-        <div *ngIf="logged$ | async as logadoNavbar; else unlogged" class="link-area">
-            <a mat-button routerLink="/diarios" matTooltip="Todos">Diários</a>
-            <a mat-button>{{logadoNavbar.email}}</a>
-            <button mat-icon-button (click)="logout()" matTooltip="Fazer logout">
-                <mat-icon>logout</mat-icon>
-            </button>
-        </div>
-        <ng-template #unlogged>
-            <div class="link-area">
-                <a mat-button routerLink="/login">Login</a>
-                <a mat-button routerLink="/cadastro">Cadastro</a>
-            </div>
-        </ng-template>
+<nav class="nav" role="navigation" aria-label="Menu principal">
+  <div class="nav__inner">
+    <a mat-button routerLink="/home" class="nav__logo" aria-label="Soul Viagens - Página inicial">
+      <img src="/assets/img/logo.png" alt="Soul Viagens" class="nav__logo-img" />
+    </a>
+
+    <div *ngIf="logged$ | async as logadoNavbar; else unlogged" class="nav__actions">
+      <a mat-button routerLink="/diarios" class="nav__link" matTooltip="Todos" aria-label="Ver diários">
+        Diários
+      </a>
+      <span class="nav__email" [attr.aria-label]="'Logado como ' + logadoNavbar.email">
+        {{ logadoNavbar.email }}
+      </span>
+      <button mat-icon-button (click)="logout()" class="nav__btn-logout" matTooltip="Fazer logout" aria-label="Fazer logout">
+        <mat-icon>logout</mat-icon>
+      </button>
     </div>
+
+    <ng-template #unlogged>
+      <div class="nav__actions">
+        <a mat-button routerLink="/login" class="nav__link nav__link--text">Entrar</a>
+        <a mat-raised-button color="primary" routerLink="/cadastro" class="nav__link nav__link--cta">Criar conta</a>
+      </div>
+    </ng-template>
+  </div>
 </nav>

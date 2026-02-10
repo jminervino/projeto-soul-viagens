@@ -1,84 +1,122 @@
-<div>
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Todos">
-      <div>
-        <!--parte central-->
-        <div class="d-flex justify-content-center">
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-            <div *ngIf="allDiarios$ | async as diarios; else loading">
-              <mat-card *ngFor="let diario of diarios | paginate: { itemsPerPage: 3, currentPage: pagina}" class="example-card">
+<div class="feed">
+  <!-- Tabs -->
+  <div class="feed__tabs">
+    <button
+      class="feed__tab"
+      [class.feed__tab--active]="activeTab === 'todos'"
+      (click)="setActiveTab('todos')">
+      Todos
+    </button>
+    <button
+      class="feed__tab"
+      [class.feed__tab--active]="activeTab === 'meus'"
+      (click)="setActiveTab('meus')">
+      Meus Diários
+    </button>
+  </div>
 
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
-                  <mat-card-title class="tam">{{ diario.usuarioName }}</mat-card-title>
-                  <mat-card-subtitle class="nick">{{
-                    diario.usuarioNick
-                    }}</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
-                <mat-card-content>
-                  <h2>{{ diario.titulo }}</h2>
-                  <small>{{ diario.data | date }} | {{ diario.local }}</small>
-                  <p>{{ diario.corpo }}</p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <a [routerLink]="diario.id" mat-icon-button color="primary" matTooltip="Detalhes">
-                    <mat-icon>visibility</mat-icon>
-                  </a>
-                </mat-card-actions>
-              </mat-card>
-              <div>
-                <pagination-controls [responsive]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]=5 (pageChange)="pagina = $event">
-                </pagination-controls>
-              </div>
+  <!-- Tab: Todos -->
+  <div class="feed__content" *ngIf="activeTab === 'todos'">
+    <div *ngIf="allDiarios$ | async as diarios; else loading" class="feed__list">
+      <article
+        class="card"
+        *ngFor="let diario of diarios | paginate: { itemsPerPage: 6, currentPage: pagina }">
+        <!-- Card Header -->
+        <div class="card__header">
+          <div class="card__avatar"></div>
+          <div class="card__author">
+            <span class="card__name">{{ diario.usuarioName }}</span>
+            <span class="card__nick">{{ diario.usuarioNick }}</span>
+          </div>
+        </div>
+
+        <!-- Card Image -->
+        <div class="card__image-wrap" (click)="onClickView(diario)">
+          <img class="card__image" [src]="diario.imagem" [alt]="diario.titulo" loading="lazy" />
+        </div>
+
+        <!-- Card Body -->
+        <div class="card__body">
+          <h3 class="card__title">{{ diario.titulo }}</h3>
+          <div class="card__meta">
+            <span>{{ diario.data | date:'dd MMM yyyy' }}</span>
+            <span class="card__meta-dot"></span>
+            <span>{{ diario.local }}</span>
+          </div>
+          <p class="card__text">{{ diario.corpo }}</p>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card__footer">
+          <button
+            class="card__action"
+            (click)="onClickView(diario)"
+            matTooltip="Ver detalhes"
+            aria-label="Ver detalhes">
+            <mat-icon>open_in_full</mat-icon>
+          </button>
+        </div>
+      </article>
+
+      <div class="feed__pagination">
+        <pagination-controls
+          [responsive]="true"
+          previousLabel="Anterior"
+          nextLabel="Próximo"
+          [maxSize]="5"
+          (pageChange)="pagina = $event">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Meus Diários -->
+  <div class="feed__content" *ngIf="activeTab === 'meus'">
+    <div *ngIf="meusDiarios$ | async as diarios; else loading">
+      <div class="gallery" *ngIf="diarios.length; else empty">
+        <div class="gallery__card" *ngFor="let diario of diarios" (click)="onClickView(diario)">
+          <img class="gallery__card-img" [src]="diario.imagem" [alt]="diario.titulo" loading="lazy" />
+          <div class="gallery__card-overlay">
+            <span class="gallery__card-title">{{ diario.titulo }}</span>
+            <div class="gallery__card-actions" (click)="$event.stopPropagation()">
+              <button
+                mat-icon-button
+                (click)="onClickEdit(diario)"
+                matTooltip="Editar"
+                aria-label="Editar diário">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                (click)="onClickDelete(diario)"
+                matTooltip="Excluir"
+                aria-label="Excluir diário">
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </mat-tab>
-
-    <mat-tab label="Meus Diarios">
-      <div *ngIf="meusDiarios$ | async as diarios; else loading">
-        <div class="perfil">
-          <!-- <div
-            mat-card-avatar
-            class="example-header-image"
-            matTooltip="Usuario logado"
-          ></div> -->
-          <div class="galery">
-            <span class="texto"> <strong>Galeria</strong></span>
-          </div>
+      <ng-template #empty>
+        <div class="feed__empty">
+          <mat-icon class="feed__empty-icon">auto_stories</mat-icon>
+          <p>Você ainda não criou nenhum diário.</p>
+          <button mat-raised-button color="primary" (click)="onClickAdd()" class="feed__empty-btn">
+            Criar primeiro diário
+          </button>
         </div>
-
-        <mat-grid-list cols="3" rowHeight="500px" *ngIf="qtColumns | async as dimension">
-          <mat-grid-tile *ngFor="let diario of diarios" [colspan]="dimension.cols">
-            <mat-card class="diario-card">
-              <img class="imgfoto" mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
-              <mat-card-title><strong>{{ diario.titulo }}</strong></mat-card-title>
-              <small style="text-align: right">
-                {{ diario.local }} / {{ diario.data | date }}</small>
-
-              <button class="edit" (click)="onClickEdit(diario)" mat-icon-button color="primary">
-                <mat-icon>edit</mat-icon>
-              </button>
-
-              <button class="delete" (click)="onClickDelete(diario)" mat-icon-button color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+      </ng-template>
+    </div>
+  </div>
 </div>
 
 <ng-template #loading>
-  <app-loader label="Carregando todos os diários..."></app-loader>
+  <app-loader label="Carregando diários..."></app-loader>
 </ng-template>
 
-<div class="fab-wrapper">
-  <button (click)="onClickAdd()" mat-fab color="primary" matTooltip="Adicionar">
+<!-- FAB -->
+<div class="fab">
+  <button (click)="onClickAdd()" mat-fab color="primary" matTooltip="Adicionar diário" class="fab__btn">
     <mat-icon>add</mat-icon>
   </button>
 </div>

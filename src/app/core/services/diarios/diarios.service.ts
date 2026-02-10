@@ -80,6 +80,10 @@ export class DiariosService {
   }
 
   editDiario(diario: Diario, imagem?: File): Observable<void> {
+    if (!diario.usuarioId) {
+      throw new Error('Diário sem usuário associado');
+    }
+
     const diarioDoc = doc(this.diarios, diario.id);
     return this.uploadService
       .upload(imagem, STORAGE_PATHS.DIARIOS(diario.usuarioId))

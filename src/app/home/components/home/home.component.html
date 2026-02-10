@@ -1,52 +1,146 @@
-<div class="banner-image d-flex">
-    <div class="text-banner">
-        <p>Você irá se <br> surpreender com o <br> que somos capazes!!</p>
+<main class="home-page">
+  <!-- Hero -->
+  <section class="hero" aria-label="Destaque">
+    <div class="hero__bg" [style.backgroundImage]="'url(/assets/img/' + bgImg + ')'"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Soul Viagens</p>
+      <h1 class="hero__title">
+        Documente suas viagens.<br />
+        Compartilhe experiências.
+      </h1>
+      <p class="hero__sub">
+        A plataforma onde viajantes registram aventuras, descobrem destinos e
+        se conectam com uma comunidade apaixonada por explorar o mundo.
+      </p>
+      <div class="hero__ctas">
+        <a mat-raised-button color="primary" routerLink="/login" class="hero__btn hero__btn--primary">
+          Começar agora
+        </a>
+        <a mat-stroked-button routerLink="/cadastro" class="hero__btn hero__btn--secondary">
+          Criar conta gratuita
+        </a>
+      </div>
     </div>
-</div>
-<div>
-    <div style="margin-top: 100px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-md-4" *ngFor="let item of imgCarousel">
-                                        <div class="single-box">
-                                            <div class="img-area">
-                                                <img class="d-block w-100" [src]="item" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-md-4" *ngFor="let item of imgCarousel2">
-                                        <div class="single-box">
-                                            <div class="img-area">
-                                                <img class="d-block w-100" [src]="item" alt="">
-                                            </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-text">Explorar</span>
+      <mat-icon class="hero__scroll-icon">expand_more</mat-icon>
+    </div>
+  </section>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Features -->
+  <section class="features" aria-labelledby="features-heading">
+    <div class="container">
+      <h2 id="features-heading" class="section-title">Por que escolher a Soul Viagens?</h2>
+      <p class="section-sub">
+        Tudo o que você precisa para documentar e compartilhar suas aventuras pelo mundo.
+      </p>
+      <div class="features__grid">
+        <div class="features__card">
+          <div class="features__icon-wrap">
+            <mat-icon class="features__icon">auto_stories</mat-icon>
+          </div>
+          <h3 class="features__card-title">Diários de Viagem</h3>
+          <p class="features__card-text">
+            Registre cada momento com textos, fotos e mapas interativos.
+          </p>
         </div>
+        <div class="features__card">
+          <div class="features__icon-wrap">
+            <mat-icon class="features__icon">explore</mat-icon>
+          </div>
+          <h3 class="features__card-title">Descubra Destinos</h3>
+          <p class="features__card-text">
+            Encontre inspiração nas experiências compartilhadas pela comunidade.
+          </p>
+        </div>
+        <div class="features__card">
+          <div class="features__icon-wrap">
+            <mat-icon class="features__icon">group</mat-icon>
+          </div>
+          <h3 class="features__card-title">Comunidade Ativa</h3>
+          <p class="features__card-text">
+            Conecte-se com viajantes e troque dicas sobre os melhores roteiros.
+          </p>
+        </div>
+      </div>
     </div>
-</div>
-<div>
-    <div class="banner-center" style="margin-top: 100px"></div>
-</div>
-<div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" aria-labelledby="gallery-heading">
+    <div class="container">
+      <h2 id="gallery-heading" class="section-title">Inspirações para sua próxima viagem</h2>
+      <div id="homeCarousel" class="carousel slide gallery__carousel" data-ride="carousel">
+        <ol class="carousel-indicators gallery__indicators">
+          <li data-target="#homeCarousel" data-slide-to="0" class="active" aria-current="true"></li>
+          <li data-target="#homeCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row gallery__row">
+              <div class="col-md-4" *ngFor="let item of imgCarousel">
+                <div class="gallery__card">
+                  <img class="gallery__card-img" [src]="item" alt="" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row gallery__row">
+              <div class="col-md-4" *ngFor="let item of imgCarousel2">
+                <div class="gallery__card">
+                  <img class="gallery__card-img" [src]="item" alt="" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="gallery__nav gallery__nav--prev carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev" aria-label="Fotos anteriores">
+          <mat-icon aria-hidden="true">chevron_left</mat-icon>
+        </a>
+        <a class="gallery__nav gallery__nav--next carousel-control-next" href="#homeCarousel" role="button" data-slide="next" aria-label="Próximas fotos">
+          <mat-icon aria-hidden="true">chevron_right</mat-icon>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats" aria-label="Estatísticas">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item">
+          <span class="stats__number">100.000+</span>
+          <span class="stats__label">Usuários inscritos</span>
+        </div>
+        <div class="stats__item">
+          <span class="stats__number">5.000+</span>
+          <span class="stats__label">Destinos explorados</span>
+        </div>
+        <div class="stats__item">
+          <span class="stats__number">10.000+</span>
+          <span class="stats__label">Viagens registradas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" aria-labelledby="team-heading">
     <app-home-carousel></app-home-carousel>
-</div>
+  </section>
+
+  <!-- CTA bottom -->
+  <section class="cta-section" aria-label="Chamada para ação">
+    <div class="container">
+      <h2 class="cta-section__title">Pronto para sua próxima aventura?</h2>
+      <p class="cta-section__sub">
+        Junte-se a milhares de viajantes que já documentam suas experiências.
+      </p>
+      <a mat-raised-button color="primary" routerLink="/cadastro" class="cta-section__btn">
+        Criar conta gratuita
+      </a>
+    </div>
+  </section>
+</main>

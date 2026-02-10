@@ -1,16 +1,87 @@
-<div class="form-wrapper">
-  <form #form="ngForm" (ngSubmit)="onSubmit()">
-    <h2>Recuperação de senha</h2>
-    <span
-      >Um email será enviado para você com o processo de redefinir senha</span
-    >
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Seu email" type="email" name="email" [(ngModel)]="email" required />
-      <mat-icon matPrefix>email</mat-icon>
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">
-      Enviar
-    </button>
-  </form>
-</div>
+<main class="recover-page">
+  <div class="recover-grid">
+    <!-- Hero -->
+    <section class="recover-hero" aria-hidden="true">
+      <img class="recover-hero__image" [src]="heroImage" alt="" />
+      <div class="recover-hero__overlay"></div>
+      <div class="recover-hero__badge">
+        <span class="recover-hero__tagline">Soul Viagens</span>
+        <p class="recover-hero__sub">Sua próxima aventura começa aqui.</p>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section class="recover-form-section">
+      <div class="recover-card">
+
+        <!-- Estado: formulário -->
+        <ng-container *ngIf="!sent">
+          <header class="recover-header">
+            <div class="recover-icon-wrap">
+              <mat-icon class="recover-icon">lock_reset</mat-icon>
+            </div>
+            <h1 class="recover-title">Recuperar senha</h1>
+            <p class="recover-subtitle">
+              Informe seu email e enviaremos um link para redefinir sua senha.
+            </p>
+          </header>
+
+          <form [formGroup]="recoverForm" (ngSubmit)="onSubmit()" class="recover-form">
+            <mat-form-field appearance="outline" class="recover-field">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="seu@email.com"
+                formControlName="email"
+                required
+                type="email" />
+              <mat-icon matPrefix>mail_outline</mat-icon>
+              <mat-error *ngIf="recoverForm.get('email')?.errors?.['required']">
+                Campo obrigatório
+              </mat-error>
+              <mat-error *ngIf="recoverForm.get('email')?.errors?.['email']">
+                Email inválido
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              type="submit"
+              class="recover-btn recover-btn--primary"
+              mat-raised-button
+              color="primary"
+              [disabled]="recoverForm.invalid || sending">
+              <span *ngIf="!sending">Enviar link de recuperação</span>
+              <span *ngIf="sending">Enviando...</span>
+            </button>
+          </form>
+        </ng-container>
+
+        <!-- Estado: sucesso -->
+        <ng-container *ngIf="sent">
+          <div class="recover-success">
+            <div class="recover-icon-wrap recover-icon-wrap--success">
+              <mat-icon class="recover-icon">check_circle</mat-icon>
+            </div>
+            <h2 class="recover-title">Email enviado!</h2>
+            <p class="recover-subtitle">
+              Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
+              Não esqueça de verificar a pasta de spam.
+            </p>
+            <button
+              type="button"
+              class="recover-btn recover-btn--secondary"
+              (click)="reset()">
+              Enviar novamente
+            </button>
+          </div>
+        </ng-container>
+
+        <!-- Link de volta -->
+        <div class="recover-back">
+          <mat-icon class="recover-back__icon">arrow_back</mat-icon>
+          <a routerLink="/login" class="recover-back__link">Voltar para o login</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
