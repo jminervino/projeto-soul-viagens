@@ -1,3 +1,9 @@
-<div *ngIf="chartData$ | async as data">
+<ng-container *ngIf="chartData$ | async as data; else emptyState">
   <canvas baseChart [data]="data" [options]="config" type="bar"></canvas>
-</div>
+</ng-container>
+<ng-template #emptyState>
+  <div class="empty-state">
+    <mat-icon>bar_chart</mat-icon>
+    <p>Nenhuma postagem esta semana</p>
+  </div>
+</ng-template>

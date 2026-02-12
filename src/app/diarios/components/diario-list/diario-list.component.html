@@ -20,7 +20,7 @@
     <div *ngIf="allDiarios$ | async as diarios; else loading" class="feed__list">
       <article
         class="card"
-        *ngFor="let diario of diarios | paginate: { itemsPerPage: 6, currentPage: pagina }">
+        *ngFor="let diario of diarios | paginate: { itemsPerPage: 6, currentPage: pagina }; trackBy: trackByDiarioId">
         <!-- Card Header -->
         <div class="card__header">
           <div class="card__avatar"></div>
@@ -74,25 +74,50 @@
   <div class="feed__content" *ngIf="activeTab === 'meus'">
     <div *ngIf="meusDiarios$ | async as diarios; else loading">
       <div class="gallery" *ngIf="diarios.length; else empty">
-        <div class="gallery__card" *ngFor="let diario of diarios" (click)="onClickView(diario)">
+        <div class="gallery__card" *ngFor="let diario of diarios; trackBy: trackByDiarioId" (click)="onClickView(diario)">
           <img class="gallery__card-img" [src]="diario.imagem" [alt]="diario.titulo" loading="lazy" />
           <div class="gallery__card-overlay">
             <span class="gallery__card-title">{{ diario.titulo }}</span>
             <div class="gallery__card-actions" (click)="$event.stopPropagation()">
+              <!-- Desktop: botões visíveis no hover -->
+              <div class="gallery__card-actions-inline">
+                <button
+                  mat-icon-button
+                  (click)="onClickEdit(diario)"
+                  matTooltip="Editar"
+                  aria-label="Editar diário">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="onClickDelete(diario)"
+                  matTooltip="Excluir"
+                  aria-label="Excluir diário">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <!-- Mobile: um botão que abre menu (evita clique acidental em editar/excluir) -->
               <button
+                class="gallery__card-menu-trigger"
                 mat-icon-button
-                (click)="onClickEdit(diario)"
-                matTooltip="Editar"
-                aria-label="Editar diário">
-                <mat-icon>edit</mat-icon>
+                [matMenuTriggerFor]="cardMenu"
+                aria-label="Opções do diário">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button
-                mat-icon-button
-                (click)="onClickDelete(diario)"
-                matTooltip="Excluir"
-                aria-label="Excluir diário">
-                <mat-icon>delete</mat-icon>
-              </button>
+              <mat-menu #cardMenu="matMenu" class="gallery__card-menu">
+                <button mat-menu-item (click)="onClickView(diario)">
+                  <mat-icon>visibility</mat-icon>
+                  <span>Ver detalhes</span>
+                </button>
+                <button mat-menu-item (click)="onClickEdit(diario)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Editar</span>
+                </button>
+                <button mat-menu-item (click)="onClickDelete(diario)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Excluir</span>
+                </button>
+              </mat-menu>
             </div>
           </div>
         </div>

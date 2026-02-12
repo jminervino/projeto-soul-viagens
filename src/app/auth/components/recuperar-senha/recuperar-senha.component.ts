@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recuperar-senha',
   templateUrl: './recuperar-senha.component.html',
   styleUrls: ['./recuperar-senha.component.scss'],
 })
-export class RecuperarSenhaComponent {
+export class RecuperarSenhaComponent implements OnDestroy {
   readonly heroImage = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80';
 
   recoverForm = this.fb.group({
@@ -17,6 +19,8 @@ export class RecuperarSenhaComponent {
 
   sending = false;
   sent = false;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +37,7 @@ export class RecuperarSenhaComponent {
     this.authService
       .recoverPassword(email)
       .pipe(
+        takeUntil(this.destroy$),
         this.toast.observe({
           loading: 'Enviando...',
           success: 'Email enviado com sucesso!',
@@ -53,5 +58,10 @@ export class RecuperarSenhaComponent {
   reset(): void {
     this.sent = false;
     this.recoverForm.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

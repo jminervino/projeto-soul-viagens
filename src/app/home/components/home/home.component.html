@@ -79,7 +79,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row gallery__row">
-              <div class="col-md-4" *ngFor="let item of imgCarousel">
+              <div class="col-md-4" *ngFor="let item of imgCarousel; trackBy: trackByIndex">
                 <div class="gallery__card">
                   <img class="gallery__card-img" [src]="item" alt="" loading="lazy" />
                 </div>
@@ -88,7 +88,7 @@
           </div>
           <div class="carousel-item">
             <div class="row gallery__row">
-              <div class="col-md-4" *ngFor="let item of imgCarousel2">
+              <div class="col-md-4" *ngFor="let item of imgCarousel2; trackBy: trackByIndex">
                 <div class="gallery__card">
                   <img class="gallery__card-img" [src]="item" alt="" loading="lazy" />
                 </div>

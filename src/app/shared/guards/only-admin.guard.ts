@@ -1,30 +1,24 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class OnlyAdminGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+export const onlyAdminGuard: CanActivateFn = (
+  _route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot
+) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isAdmin.pipe(
-      tap((admin) => {
-        if (!admin) {
-          this.router.navigateByUrl('/');
-        }
-      })
-    );
-  }
-}
+  return authService.isAdmin.pipe(
+    map((isAdmin): boolean | UrlTree =>
+      isAdmin ? true : router.createUrlTree(['/home'])
+    )
+  );
+};

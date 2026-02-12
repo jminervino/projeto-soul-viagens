@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
   
   constructor() { }
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+
   ngOnInit(): void {
   }
 

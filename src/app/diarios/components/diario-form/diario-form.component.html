@@ -1,55 +1,53 @@
-<form #form="ngForm" (ngSubmit)="onSubmit()" class="diario-add">
-    <h2 mat-dialog-title>Adicionar diário</h2>
-    <div mat-dialog-content>
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="onSubmit()" class="diario-add">
+    <h2 mat-dialog-title>
+      {{ mode === 'add' ? 'Adicionar diário' : 'Editar diário' }}
+    </h2>
+    <div mat-dialog-content class="form-container">
       <mat-form-field appearance="fill">
         <mat-label>Título</mat-label>
         <input name="titulo" matInput [(ngModel)]="diario.titulo" required />
         <mat-icon matPrefix>person</mat-icon>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Local</mat-label>
         <input name="local" matInput [(ngModel)]="diario.local" required />
         <mat-icon matPrefix>pin_drop</mat-icon>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Data</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          name="data"
-          [(ngModel)]="diario.data"
-        />
+        <input matInput [matDatepicker]="picker" name="data" [(ngModel)]="diario.data" />
         <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Comentário</mat-label>
-        <textarea
-          name="corpo"
-          matInput
-          [(ngModel)]="diario.corpo"
-          required
-        ></textarea>
+        <textarea name="corpo" matInput [(ngModel)]="diario.corpo" required></textarea>
         <mat-icon matPrefix>chat</mat-icon>
       </mat-form-field>
-      <input
-        (change)="setImage($event)"
-        #imagem
-        type="file"
-        name="imagem"
-        hidden
-      />
+
+      <input (change)="onFileChange($event)" #imagem type="file" name="imagem" hidden />
       <button
+        class="btnCheck"
+        [class.btnCheck2]="hasImage"
         (click)="imagem.click()"
         type="button"
         mat-raised-button
         color="accent"
       >
-        <mat-icon>upload</mat-icon>
-        Imagem do diário</button
-      ><br />
+        <mat-icon>{{ icon }}</mat-icon>
+        Imagem do diário
+      </button>
+
+      <br />
+
       <button mat-raised-button color="primary" [disabled]="form.invalid">
-        Adicionar
+        {{ mode === 'add' ? 'Adicionar' : 'Salvar' }}
       </button>
     </div>
   </form>
+</div>
+

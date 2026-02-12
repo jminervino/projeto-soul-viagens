@@ -23,8 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   private shouldShowLayout(): boolean {
-    // Esconde navbar e footer nas rotas de autenticação
-    const authRoutes = ['/login', '/cadastro', '/recuperar-senha', '/confirmar-email'];
-    return !authRoutes.some(route => this.router.url.includes(route));
+    // Esconde navbar e footer nas rotas de autenticação (lazy em /auth/*; /login etc. redirecionam para /auth)
+    return !this.router.url.startsWith('/auth');
   }
 }

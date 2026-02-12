@@ -10,18 +10,11 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'diarios',
-    pathMatch: 'full',
-  },
-
-  {
-    path: 'diarios',
     component: DiarioListComponent,
-    // ...canActivate(redirectUnauthorizedToLogin),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
-
   {
-    path: 'diarios/:id',
+    path: ':id',
     component: DiarioDetailComponent,
     ...canActivate(redirectUnauthorizedToLogin),
   },

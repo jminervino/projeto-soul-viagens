@@ -306,6 +306,8 @@ $duration: 0.2s;
 .gallery__card-actions {
   display: flex;
   gap: 4px;
+  align-items: center;
+  justify-content: center;
 
   button {
     color: $white !important;
@@ -314,6 +316,15 @@ $duration: 0.2s;
       background: rgba($white, 0.15) !important;
     }
   }
+}
+
+.gallery__card-actions-inline {
+  display: flex;
+  gap: 4px;
+}
+
+.gallery__card-menu-trigger {
+  display: none;
 }
 
 // =============================================================================
@@ -401,5 +412,59 @@ $duration: 0.2s;
 
   .gallery {
     gap: 2px;
+    padding-bottom: 24px;
+  }
+
+  .gallery__card-overlay {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .gallery__card-actions {
+    pointer-events: auto;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    left: auto;
+    justify-content: flex-end;
+  }
+
+  .gallery__card-actions-inline {
+    display: none;
+  }
+
+  .gallery__card-menu-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: rgba($navy, 0.6);
+    color: $white !important;
+
+    &:hover {
+      background: rgba($navy, 0.85) !important;
+    }
+  }
+}
+
+// Mobile: em "Meus Diários" desativa flex do sticky footer — conteúdo em fluxo, footer abaixo
+@media (max-width: 768px) {
+  :host-context(body.layout-sticky-footer) {
+    flex: none;
+    min-height: auto;
+    display: block;
+  }
+
+  :host-context(body.layout-sticky-footer) .feed {
+    flex: none;
+    min-height: auto;
+    padding-bottom: 24px;
+  }
+
+  :host-context(body.layout-sticky-footer) .feed__content {
+    flex: none;
+    min-height: auto;
+    display: block;
   }
 }

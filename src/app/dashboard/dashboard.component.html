@@ -1,30 +1,70 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <span *ngIf="totalPosts$ | async as total">
-    Total de posts: {{ total }}
-  </span>
+<main class="dashboard" role="main">
+  <header class="dashboard__header">
+    <h1 class="dashboard__title">Dashboard</h1>
+    <p class="dashboard__subtitle">Visão geral da plataforma Soul Viagens</p>
+  </header>
 
-  <br />
-  <span *ngIf="usuarioTotal$ | async as total">
-    Total de usuários: {{ total }}
-  </span>
+  <section class="dashboard__stats" aria-label="Métricas principais">
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">
+        <mat-icon>article</mat-icon>
+      </div>
+      <div class="stat-card__content">
+        <span class="stat-card__label">Total de posts</span>
+        <span class="stat-card__value" *ngIf="totalPosts$ | async as total">{{ total }}</span>
+        <span class="stat-card__value stat-card__value--skeleton" *ngIf="!(totalPosts$ | async)">&mdash;</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon stat-card__icon--accent" aria-hidden="true">
+        <mat-icon>group</mat-icon>
+      </div>
+      <div class="stat-card__content">
+        <span class="stat-card__label">Total de usuários</span>
+        <span class="stat-card__value" *ngIf="usuarioTotal$ | async as total">{{ total }}</span>
+        <span class="stat-card__value stat-card__value--skeleton" *ngIf="!(usuarioTotal$ | async)">&mdash;</span>
+      </div>
+    </div>
+  </section>
 
-  <mat-grid-list cols="3" rowHeight="400px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div [ngSwitch]="card.id">
-            <app-week-posts *ngSwitchCase="'week-posts'"></app-week-posts>
-            <app-common-locals *ngSwitchCase="'common-locals'"></app-common-locals>
-            <app-last-posts *ngSwitchCase="'last-posts'"></app-last-posts>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+  <section class="dashboard__grid" aria-label="Widgets">
+    <article class="widget-card widget-card--wide">
+      <header class="widget-card__header">
+        <mat-icon class="widget-card__icon" aria-hidden="true">bar_chart</mat-icon>
+        <div class="widget-card__header-text">
+          <h2 class="widget-card__title">Postagens da Semana</h2>
+          <p class="widget-card__description">Distribuição por dia da semana atual</p>
+        </div>
+      </header>
+      <div class="widget-card__body">
+        <app-week-posts></app-week-posts>
+      </div>
+    </article>
+
+    <article class="widget-card widget-card--locals">
+      <header class="widget-card__header">
+        <mat-icon class="widget-card__icon" aria-hidden="true">pie_chart</mat-icon>
+        <div class="widget-card__header-text">
+          <h2 class="widget-card__title">Destinos Mais Visitados</h2>
+          <p class="widget-card__description">Top destinos registrados</p>
+        </div>
+      </header>
+      <div class="widget-card__body">
+        <app-common-locals></app-common-locals>
+      </div>
+    </article>
+
+    <article class="widget-card">
+      <header class="widget-card__header">
+        <mat-icon class="widget-card__icon" aria-hidden="true">history</mat-icon>
+        <div class="widget-card__header-text">
+          <h2 class="widget-card__title">Últimos Posts</h2>
+          <p class="widget-card__description">5 publicações mais recentes</p>
+        </div>
+      </header>
+      <div class="widget-card__body">
+        <app-last-posts></app-last-posts>
+      </div>
+    </article>
+  </section>
+</main>

@@ -5,7 +5,7 @@
       Conheça as pessoas por trás da Soul Viagens.
     </p>
     <div class="team-section__grid">
-      <div class="team-card" *ngFor="let member of team">
+      <div class="team-card" *ngFor="let member of team; trackBy: trackByMember">
         <div class="team-card__avatar">
           <img [src]="member.photo" [alt]="member.name" loading="lazy" />
         </div>

@@ -13,6 +13,10 @@ interface TeamMember {
 })
 export class HomeCarouselComponent {
 
+  trackByMember(_: number, member: TeamMember): string {
+    return member.name;
+  }
+
   readonly team: TeamMember[] = [
     { name: 'Elaine Brito', role: 'Desenvolvedora', photo: 'assets/img/squad/elaine.jpg' },
     { name: 'Alexandre Mercador', role: 'Desenvolvedor', photo: 'assets/img/squad/mercador.jpg' },

@@ -1,6 +1,11 @@
-<div class="chart-wrapper" *ngIf="chartData$ | async as data">
-  <canvas baseChart type="pie" 
-    [data]="data" 
-    [options]="config">
-  </canvas>
-</div>
+<ng-container *ngIf="chartData$ | async as data; else emptyState">
+  <div class="chart-wrapper">
+    <canvas baseChart type="pie" [data]="data" [options]="config"></canvas>
+  </div>
+</ng-container>
+<ng-template #emptyState>
+  <div class="empty-state">
+    <mat-icon>pie_chart</mat-icon>
+    <p>Nenhum destino registrado</p>
+  </div>
+</ng-template>

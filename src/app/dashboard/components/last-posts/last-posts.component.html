@@ -1,8 +1,19 @@
-<mat-list>
-  <mat-list-item *ngFor="let diario of lastPosts$ | async">
-    <div mat-line>{{ diario.titulo }}</div>
-    <div mat-line>
-        {{ diario.usuarioName }} | {{diario.createdAt | date:'dd/MM/Y'}}
-    </div>
-  </mat-list-item>
-</mat-list>
+<ng-container *ngIf="lastPosts$ | async as posts; else emptyState">
+  <mat-list>
+    <mat-list-item *ngFor="let diario of posts; trackBy: trackByDiarioId" class="post-item">
+      <span class="post-avatar" matListItemIcon>
+        {{ diario.usuarioName?.charAt(0) ?? '?' }}
+      </span>
+      <div matListItemTitle class="post-title">{{ diario.titulo }}</div>
+      <div matListItemLine class="post-meta">
+        {{ diario.usuarioName }} &middot; {{ diario.createdAt | date:'dd MMM yyyy' }}
+      </div>
+    </mat-list-item>
+  </mat-list>
+</ng-container>
+<ng-template #emptyState>
+  <div class="empty-state">
+    <mat-icon>article</mat-icon>
+    <p>Nenhum post encontrado</p>
+  </div>
+</ng-template>

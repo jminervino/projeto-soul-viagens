@@ -69,7 +69,7 @@ $duration: 0.2s;
 .nav__logo-img {
   width: 140px;
   height: auto;
-  max-height: 48px;
+  max-height: 70px;
   object-fit: contain;
   display: block;
 }
@@ -124,7 +124,7 @@ $duration: 0.2s;
   white-space: nowrap;
 }
 
-.nav__btn-logout {
+.nav__btn-profile {
   color: rgba($white, 0.9) !important;
   margin-left: 4px;
   transition: background $duration $ease;
@@ -137,6 +137,41 @@ $duration: 0.2s;
 
 .nav__link--cta.mat-mdc-raised-button.mat-primary {
   --mdc-protected-button-container-color: transparent;
+}
+
+::ng-deep .nav__menu {
+  .mat-mdc-menu-content {
+    padding: 4px 0;
+  }
+}
+
+.nav__menu-header,
+.nav__menu-section {
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+.nav__menu-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.nav__menu-email {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav__menu-section {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: $gray-600 !important;
+  min-height: 32px;
 }
 
 @media (max-width: 600px) {
@@ -158,7 +193,15 @@ $duration: 0.2s;
   }
 
   .nav__email {
-    max-width: 100px;
+    display: none;
+  }
+
+  .nav__btn-profile {
+    margin-left: 0;
+  }
+
+  .nav__menu-email {
+    max-width: 170px;
     font-size: 0.75rem;
   }
 }

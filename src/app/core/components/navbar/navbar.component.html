@@ -11,9 +11,35 @@
       <span class="nav__email" [attr.aria-label]="'Logado como ' + logadoNavbar.email">
         {{ logadoNavbar.email }}
       </span>
-      <button mat-icon-button (click)="logout()" class="nav__btn-logout" matTooltip="Fazer logout" aria-label="Fazer logout">
-        <mat-icon>logout</mat-icon>
+
+      <button
+        mat-icon-button
+        class="nav__btn-profile"
+        [matMenuTriggerFor]="profileMenu"
+        matTooltip="Menu do perfil"
+        aria-label="Abrir menu do perfil">
+        <mat-icon>account_circle</mat-icon>
       </button>
+
+      <mat-menu #profileMenu="matMenu" class="nav__menu">
+        <div class="nav__menu-header" mat-menu-item disabled>
+          <mat-icon>person</mat-icon>
+          <span class="nav__menu-email">{{ logadoNavbar.email }}</span>
+        </div>
+
+        <ng-container *ngIf="isAdmin$ | async">
+          <div class="nav__menu-section" mat-menu-item disabled>Configurações</div>
+          <button mat-menu-item routerLink="/dashboard" aria-label="Ir para dashboard">
+            <mat-icon>settings</mat-icon>
+            <span>Dashboard</span>
+          </button>
+        </ng-container>
+
+        <button mat-menu-item (click)="logout()" aria-label="Fazer logout">
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
     </div>
 
     <ng-template #unlogged>

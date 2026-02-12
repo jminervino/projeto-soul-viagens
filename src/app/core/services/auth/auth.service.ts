@@ -13,7 +13,7 @@ import {
   UserCredential
 } from '@firebase/auth';
 import { collection, setDoc } from '@firebase/firestore';
-import { first, from, map, Observable, switchMap, tap } from 'rxjs';
+import { filter, first, from, map, Observable, switchMap, tap } from 'rxjs';
 import { UserData } from '../../models';
 import { FIRESTORE_COLLECTIONS, ROUTES } from '../../constants/app.constants';
 
@@ -50,12 +50,14 @@ export class AuthService {
 
   get isAdmin(): Observable<boolean> {
     return authState(this.auth).pipe(
+      filter((user) => user !== null),
       first(),
       switchMap((user: FirebaseUser | null) => {
         if (!user) {
           return [false];
         }
         const userDoc = doc(this.usuarios, user.uid);
+        console.log('userDoc', userDoc);
         return docData(userDoc).pipe(first());
       }),
       map((user) => (user as UserData)?.isAdmin === true)

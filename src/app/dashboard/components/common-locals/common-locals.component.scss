@@ -1,5 +1,10 @@
+:host {
+  display: block;
+}
+
 .chart-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 300px;
 }

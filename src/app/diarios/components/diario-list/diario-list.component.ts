@@ -3,12 +3,12 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { Diario } from 'src/app/core/models/diario';
 import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
-import { DiarioAddComponent } from '../diario-add/diario-add.component';
-import { DiarioEditComponent } from '../diario-edit/diario-edit.component';
 import { DiarioDetailComponent } from '../diario-detail/diario-detail.component';
+import { DiarioFormComponent } from '../diario-form/diario-form.component';
+import { takeUntil } from 'rxjs/operators';
 
 const STICKY_FOOTER_CLASS = 'layout-sticky-footer';
 
@@ -32,6 +32,12 @@ export class DiarioListComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document
   ) {}
 
+  private readonly destroy$ = new Subject<void>();
+
+  trackByDiarioId(_: number, diario: Diario): string {
+    return diario.id ?? '';
+  }
+
   setActiveTab(tab: 'todos' | 'meus'): void {
     this.activeTab = tab;
     this.updateBodyClass();
@@ -47,6 +53,8 @@ export class DiarioListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.document.body.classList.remove(STICKY_FOOTER_CLASS);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   qtColumns = this.breakpointObserver
@@ -71,46 +79,57 @@ export class DiarioListComponent implements OnInit, OnDestroy {
   }
 
   onClickAdd() {
-    const ref = this.dialog.open(DiarioAddComponent, { maxWidth: '512px' });
-    ref.afterClosed().subscribe({
-      next: (result) => {
-        if (result) {
-          this.diariosService
-            .addDiario(result.diario, result.imagem)
-            .pipe(
-              this.toast.observe({
-                loading: 'Adicionando...',
-                error: 'Ocorreu um erro',
-                success: 'Diário adicionado',
-              })
-            )
-            .subscribe();
-        }
-      },
+    const ref = this.dialog.open(DiarioFormComponent, {
+      maxWidth: '512px',
+      data: { mode: 'add' },
     });
+    ref
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.diariosService
+              .addDiario(result.diario, result.imagem)
+              .pipe(
+                takeUntil(this.destroy$),
+                this.toast.observe({
+                  loading: 'Adicionando...',
+                  error: 'Ocorreu um erro',
+                  success: 'Diário adicionado',
+                })
+              )
+              .subscribe();
+          }
+        },
+      });
   }
 
   onClickEdit(diario: Diario) {
-    const ref = this.dialog.open(DiarioEditComponent, {
+    const ref = this.dialog.open(DiarioFormComponent, {
       maxWidth: '512px',
-      data: { ...diario },
+      data: { mode: 'edit', value: { ...diario } },
     });
-    ref.afterClosed().subscribe({
-      next: (result) => {
-        if (result) {
-          this.diariosService
-            .editDiario(result.diario, result.imagem)
-            .pipe(
-              this.toast.observe({
-                loading: 'Atualizando...',
-                error: 'Ocorreu um erro',
-                success: 'Diário atualizado',
-              })
-            )
-            .subscribe();
-        }
-      },
-    });
+    ref
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.diariosService
+              .editDiario(result.diario, result.imagem)
+              .pipe(
+                takeUntil(this.destroy$),
+                this.toast.observe({
+                  loading: 'Atualizando...',
+                  error: 'Ocorreu um erro',
+                  success: 'Diário atualizado',
+                })
+              )
+              .subscribe();
+          }
+        },
+      });
   }
 
   onClickDelete(diario: Diario) {
@@ -118,7 +137,10 @@ export class DiarioListComponent implements OnInit, OnDestroy {
     if (canDelete) {
       this.diariosService
         .deleteDiario(diario)
-        .pipe(this.toast.observe({ success: 'Diário apagado!' }))
+        .pipe(
+          takeUntil(this.destroy$),
+          this.toast.observe({ success: 'Diário apagado!' })
+        )
         .subscribe();
     }
   }

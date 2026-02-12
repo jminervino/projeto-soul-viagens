@@ -1,70 +1,23 @@
-// =============================================================================
-// Cadastro — same design system as Login
-// =============================================================================
-
-$accent: #ff6b35;
-$accent-light: #ff8c69;
-$navy: #0f172a;
-$blue: #004e89;
-$sky: #1a8fe3;
-$white: #ffffff;
-$gray-50: #f8fafc;
-$gray-100: #f1f5f9;
-$gray-200: #e2e8f0;
-$gray-300: #cbd5e1;
-$gray-400: #94a3b8;
-$gray-500: #64748b;
-$gray-700: #334155;
-$gray-900: #0f172a;
-
-$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-$font-display: 'Playfair Display', Georgia, serif;
-$ease: cubic-bezier(0.33, 1, 0.68, 1);
-$duration: 0.2s;
-$radius-md: 14px;
-$radius-xl: 24px;
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-$shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
-$shadow-glow: 0 8px 32px rgba($accent, 0.25);
+@import '../../_auth-layout';
 
 // =============================================================================
-// Base
+// Cadastro — estilos comuns via partial + específicos abaixo
 // =============================================================================
+
 .signup-page {
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: $gray-50;
-  font-family: $font-sans;
+  @extend %auth-page-base;
 }
 
 .signup-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
-  min-height: 100dvh;
+  @extend %auth-grid;
 }
 
-// =============================================================================
-// Hero (left)
-// =============================================================================
 .signup-hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-  overflow: hidden;
-  background: $navy;
+  @extend %auth-hero;
 }
 
 .signup-hero__image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s $ease;
+  @extend %auth-hero-image;
 }
 
 .signup-page:hover .signup-hero__image {
@@ -72,103 +25,45 @@ $shadow-glow: 0 8px 32px rgba($accent, 0.25);
 }
 
 .signup-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba($navy, 0.75) 0%,
-    rgba($blue, 0.4) 50%,
-    rgba($navy, 0.6) 100%
-  );
-  pointer-events: none;
+  @extend %auth-hero-overlay;
 }
 
 .signup-hero__badge {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: $white;
-  max-width: 360px;
+  @extend %auth-hero-badge;
 }
 
 .signup-hero__tagline {
-  display: block;
-  font-family: $font-display;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  @extend %auth-hero-tagline;
 }
 
 .signup-hero__sub {
-  font-size: 1rem;
-  font-weight: 400;
-  opacity: 0.9;
-  margin: 0;
+  @extend %auth-hero-sub;
 }
 
-// =============================================================================
-// Form section (right)
-// =============================================================================
 .signup-form-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  overflow-y: auto;
+  @extend %auth-form-section;
 }
 
 .signup-card {
-  width: 100%;
+  @extend %auth-card;
   max-width: 460px;
-  background: $white;
-  border-radius: $radius-xl;
-  box-shadow: $shadow-lg;
   padding: 40px 36px;
-  animation: cardIn 0.5s $ease;
 }
 
-@keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// =============================================================================
-// Header
-// =============================================================================
 .signup-header {
   margin-bottom: 28px;
 }
 
 .signup-title {
-  font-family: $font-display;
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: $gray-900;
-  margin: 0 0 4px;
+  @extend %auth-form-title;
 }
 
 .signup-subtitle {
-  font-size: 0.9375rem;
-  color: $gray-500;
-  margin: 0;
+  @extend %auth-form-subtitle;
 }
 
-// =============================================================================
-// Form
-// =============================================================================
 .signup-form {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  @extend %auth-form;
 }
 
 .signup-row {
@@ -178,41 +73,12 @@ $shadow-glow: 0 8px 32px rgba($accent, 0.25);
 }
 
 .signup-field {
-  width: 100%;
+  @extend %auth-field;
   margin-bottom: 2px;
 
   ::ng-deep {
     .mat-mdc-form-field-subscript-wrapper {
       margin-bottom: 2px;
-    }
-    .mat-mdc-text-field-wrapper {
-      border-radius: $radius-md;
-      background: $gray-50;
-    }
-    .mdc-notched-outline .mdc-notched-outline__leading,
-    .mdc-notched-outline .mdc-notched-outline__notch,
-    .mdc-notched-outline .mdc-notched-outline__trailing {
-      border-radius: $radius-md;
-      border-color: $gray-200;
-      transition: border-color $duration $ease;
-    }
-    .mat-mdc-form-field-focus-overlay {
-      border-radius: $radius-md;
-    }
-    .mat-mdc-form-field:hover .mdc-notched-outline .mdc-notched-outline__leading,
-    .mat-mdc-form-field:hover .mdc-notched-outline .mdc-notched-outline__notch,
-    .mat-mdc-form-field:hover .mdc-notched-outline .mdc-notched-outline__trailing {
-      border-color: $gray-400;
-    }
-    .mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__leading,
-    .mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__notch,
-    .mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__trailing {
-      border-color: $sky;
-      border-width: 2px;
-    }
-    .mat-mdc-input-element,
-    .mat-mdc-floating-label {
-      font-family: $font-sans;
     }
   }
 }
@@ -231,34 +97,8 @@ $shadow-glow: 0 8px 32px rgba($accent, 0.25);
   align-items: center;
 }
 
-// =============================================================================
-// Buttons
-// =============================================================================
 .signup-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 48px;
-  padding: 0 20px;
-  font-family: $font-sans;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  border: none;
-  border-radius: $radius-md;
-  cursor: pointer;
-  transition: transform $duration $ease, box-shadow $duration $ease, background $duration $ease;
-
-  &:focus-visible {
-    outline: 2px solid $blue;
-    outline-offset: 2px;
-  }
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+  @extend %auth-btn-base;
 }
 
 .signup-btn__text {
@@ -277,125 +117,59 @@ $shadow-glow: 0 8px 32px rgba($accent, 0.25);
 }
 
 .signup-btn--primary {
-  background: $accent !important;
-  color: $white !important;
-  box-shadow: $shadow-md;
-
-  &:hover:not(:disabled) {
-    box-shadow: $shadow-glow;
-    transform: translateY(-1px);
-  }
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-  &.mat-mdc-raised-button.mat-primary {
-    --mdc-protected-button-container-color: transparent;
-    --mdc-protected-button-label-text-color: #{$white};
-  }
+  @extend %auth-btn-primary;
 }
 
 .signup-btn--google {
-  background: $white;
-  color: $gray-700;
-  border: 1.5px solid $gray-200;
-
-  &:hover:not(:disabled) {
-    background: $gray-50;
-    border-color: rgba(66, 133, 244, 0.4);
-    background: rgba(66, 133, 244, 0.06);
-    transform: translateY(-1px);
-    box-shadow: $shadow-sm;
-  }
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
+  @extend %auth-btn-google;
+  margin-top: 0;
 }
 
-// =============================================================================
-// Divider
-// =============================================================================
 .signup-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  @extend %auth-divider;
   margin: 20px 0 16px;
 }
 
 .signup-divider__text {
-  font-size: 0.8125rem;
-  color: $gray-500;
-  white-space: nowrap;
+  @extend %auth-divider-text;
 }
 
 .signup-divider::before,
 .signup-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: $gray-200;
+  @extend %auth-divider-lines;
 }
 
-// =============================================================================
-// Footer (cross-link)
-// =============================================================================
 .signup-footer {
-  text-align: center;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid $gray-100;
-  font-size: 0.875rem;
-  color: $gray-500;
+  @extend %auth-footer;
 }
 
 .signup-footer__link {
-  font-weight: 600;
-  color: $sky;
-  text-decoration: none;
-  transition: color $duration ease;
-
-  &:hover {
-    color: $blue;
-    text-decoration: underline;
-  }
-  &:focus-visible {
-    outline: 2px solid $sky;
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
+  @extend %auth-footer-link;
 }
 
-// =============================================================================
-// Responsive
-// =============================================================================
-@media (max-width: 900px) {
+@media (max-width: $auth-bp) {
   .signup-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
   }
-
   .signup-hero {
     min-height: 180px;
     padding: 24px 20px;
   }
-
   .signup-hero__badge {
     max-width: 100%;
   }
-
   .signup-form-section {
     padding: 20px 16px 32px;
     align-items: flex-start;
   }
-
   .signup-card {
     padding: 28px 20px;
     max-width: 100%;
   }
-
   .signup-title {
     font-size: 1.5rem;
   }
-
   .signup-row {
     grid-template-columns: 1fr;
     gap: 0;
